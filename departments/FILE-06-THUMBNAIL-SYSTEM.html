@@ -1,0 +1,772 @@
+<!DOCTYPE html><html lang="hi"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>FILE 06 — Thumbnail System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Serif+Devanagari:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16151a;--muted:#5b5660;--line:#ddd7e0;--accent:#7a3a10;--accent2:#b8862f;}
+@page{size:A4;margin:18mm 16mm 20mm 16mm;@bottom-center{content:counter(page);font-family:"Noto Serif",serif;font-size:9pt;color:#999;}}
+*{box-sizing:border-box;}html,body{margin:0;padding:0;background:#525659;}
+body{font-family:"Noto Serif Devanagari","Noto Serif",Georgia,serif;color:var(--ink);line-height:1.55;font-size:10.8pt;}
+.page-sheet{background:#fff;width:210mm;min-height:297mm;margin:10mm auto;padding:22mm 18mm;box-shadow:0 4px 22px rgba(0,0,0,.4);}
+@media print{html,body{background:#fff;}.page-sheet{width:auto;min-height:auto;margin:0;padding:0;box-shadow:none;}a{color:var(--ink);text-decoration:none;}.no-print{display:none!important;}}
+h1,h2,h3{font-family:"Noto Sans Devanagari","Cinzel",serif;line-height:1.25;}
+.story-title{font-size:13pt;color:#fff;background:linear-gradient(90deg,var(--accent),#222);padding:8px 12px;border-radius:6px;margin:0 0 .6em;break-after:avoid;}
+.pkg-part{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:11pt;color:var(--accent);margin:1em 0 .35em;padding-bottom:3px;border-bottom:2px solid var(--accent2);break-after:avoid;}
+p{margin:.3em 0;}.kv{margin:.22em 0;text-align:justify;}.kvk{font-weight:700;color:#2a2730;}
+.note-line{font-size:8.8pt;color:var(--muted);font-style:italic;margin:.2em 0 .5em;}
+ul,ol{margin:.25em 0 .5em;padding-left:1.3em;}li{margin:.12em 0;}
+code{font-family:"JetBrains Mono",monospace;font-size:8.8pt;}
+.prompt{background:#f6f3f8;border:1px solid #e3dceb;border-left:3px solid var(--accent2);border-radius:5px;padding:7px 10px;margin:.4em 0;break-inside:avoid;}
+.prompt-label{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:8.6pt;color:var(--accent);margin-bottom:3px;}
+.prompt code{display:block;color:#241f2b;line-height:1.45;white-space:pre-wrap;word-break:break-word;}
+.story{break-before:page;padding-top:2mm;}
+.cover{background:radial-gradient(120% 80% at 50% 16%,#2a0d14 0%,#140a10 45%,#060406 100%);color:#f3eee9;min-height:297mm;width:210mm;margin:10mm auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;box-shadow:0 4px 22px rgba(0,0,0,.5);}
+.cover .lamp{font-size:42pt;filter:drop-shadow(0 0 18px rgba(184,134,47,.7));margin-bottom:6mm;}
+.cover .filecode{font-family:"Cinzel",serif;letter-spacing:6px;color:var(--accent2);font-size:13pt;}
+.cover .brand{font-family:"Cinzel",serif;font-size:22pt;letter-spacing:1px;margin:6mm 8mm 0;}
+.cover .devnag{font-family:"Noto Serif Devanagari",serif;font-weight:700;}
+.cover .dept{font-family:"Noto Sans Devanagari",sans-serif;font-size:26pt;color:#e6d8c0;margin:8mm 8mm 0;}
+.cover .sub{margin-top:3mm;color:#b9aa98;font-size:12pt;}
+.cover .rule{width:55mm;border:0;border-top:1px solid #5a4636;margin:9mm auto;}
+.cover .foot{position:absolute;bottom:18mm;font-size:9pt;color:#8a7d72;letter-spacing:1px;}
+@media print{.cover{width:auto;min-height:100vh;margin:0;break-after:page;}}
+.copyright{font-size:10pt;color:var(--muted);}.copyright h2{color:var(--ink);}
+.vol-divider{break-before:page;break-after:page;min-height:230mm;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(160deg,#fbf7f3,#f3ece4);}
+.vd-kicker{font-family:"Cinzel",serif;letter-spacing:7px;color:var(--accent2);font-size:13pt;}
+.vd-title{font-family:"Noto Sans Devanagari",sans-serif;font-size:28pt;color:var(--accent);margin:6mm 0 3mm;}
+.vd-sub{font-family:"Noto Sans Devanagari",sans-serif;font-size:12pt;color:#5b5660;}
+.vd-mark{margin-top:8mm;font-size:24pt;}
+h1.toch{font-size:18pt;border-bottom:3px solid var(--accent);padding-bottom:.2em;}
+.toc{list-style:none;padding:0;margin:0;column-count:2;column-gap:10mm;font-size:9pt;}
+.toc li{margin:.05em 0;break-inside:avoid;}.toc a{text-decoration:none;color:#3a3640;}
+.toc-l1{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:10.5pt;color:var(--accent);margin-top:.5em!important;column-span:all;border-bottom:1px solid var(--line);padding-bottom:2px;}
+.banner-note{background:#fff7e6;border:1px solid #e8cf94;border-radius:6px;padding:10px 14px;margin:1em 0;font-size:9.5pt;color:#6b5414;}
+.intro p{text-align:justify;}
+</style></head><body>
+<section class="cover">
+<div class="lamp">🏮</div>
+<div class="filecode">FILE 06</div>
+<div class="brand">THE ALLEY VERSE <span style="color:var(--accent2)">&amp;</span> <span class="devnag">वो गली</span></div>
+<hr class="rule"/>
+<div class="dept">Thumbnail System</div>
+<div class="sub">Concepts · Prompts · Text · CTR Psychology</div>
+<div class="foot">ULTIMATE HORROR CONTENT FACTORY · DEPARTMENT FILE 6/10</div>
+</section>
+<section class="page-sheet copyright">
+<h2>Copyright &amp; Notice</h2>
+<p><strong>THE ALLEY VERSE &amp; वो गली — Ultimate Horror Content Factory</strong></p>
+<p>Thumbnail System · संस्करण 1.0 · 2026</p><hr/>
+<p>© 2026 THE ALLEY VERSE &amp; वो गली. सर्वाधिकार सुरक्षित (All Rights Reserved)।</p>
+<p>यह फाइल इस प्रोडक्शन सिस्टम के एक विभाग (department) का दस्तावेज़ है। सभी 100 कहानियाँ मौलिक हैं।</p>
+<p class="copyright">नोट: AI image/video prompts English में हैं (मॉडल की ज़रूरत); बाकी सामग्री हिंदी में। PDF बनाने के लिए इस HTML को Chrome में खोलकर Print → Save as PDF (A4) करें।</p>
+</section>
+<section class="page-sheet">
+<h1 class="toch">विषय-सूची · Table of Contents</h1>
+<p class="banner-note no-print">💡 TOC clickable है — किसी भी आइटम पर क्लिक करके सीधे वहाँ जाएँ।</p>
+<ul class="toc"><li class="toc-l1"><a href="#vol1">VOLUME 1 — THE ALLEY VERSE (50)</a></li><li class="toc-l2"><a href="#a1">#1 — The House That Remembers</a></li><li class="toc-l2"><a href="#a2">#2 — Static</a></li><li class="toc-l2"><a href="#a3">#3 — The 4 AM Neighbor</a></li><li class="toc-l2"><a href="#a4">#4 — The Long Drive Home</a></li><li class="toc-l2"><a href="#a5">#5 — Tenant Below</a></li><li class="toc-l2"><a href="#a6">#6 — The Photograph App</a></li><li class="toc-l2"><a href="#a7">#7 — Nightshift at the Aquarium</a></li><li class="toc-l2"><a href="#a8">#8 — The Quiet Town</a></li><li class="toc-l2"><a href="#a9">#9 — The Sleep Study</a></li><li class="toc-l2"><a href="#a10">#10 — Floor 13</a></li><li class="toc-l2"><a href="#a11">#11 — The Babysitter's Tape</a></li><li class="toc-l2"><a href="#a12">#12 — The Mirror Doesn't Blink</a></li><li class="toc-l2"><a href="#a13">#13 — Dead Air Podcast</a></li><li class="toc-l2"><a href="#a14">#14 — The Cul-de-sac</a></li><li class="toc-l2"><a href="#a15">#15 — Smile Detected</a></li><li class="toc-l2"><a href="#a16">#16 — The Substitute</a></li><li class="toc-l2"><a href="#a17">#17 — Low Tide</a></li><li class="toc-l2"><a href="#a18">#18 — The Recommendation</a></li><li class="toc-l2"><a href="#a19">#19 — Apartment 0</a></li><li class="toc-l2"><a href="#a20">#20 — The Night Bus</a></li><li class="toc-l2"><a href="#a21">#21 — The Family Photo</a></li><li class="toc-l2"><a href="#a22">#22 — Buffering</a></li><li class="toc-l2"><a href="#a23">#23 — The Other Tenant</a></li><li class="toc-l2"><a href="#a24">#24 — Signal Lost</a></li><li class="toc-l2"><a href="#a25">#25 — The Waiting Room</a></li><li class="toc-l2"><a href="#a26">#26 — Pareidolia</a></li><li class="toc-l2"><a href="#a27">#27 — The Inheritance</a></li><li class="toc-l2"><a href="#a28">#28 — Replay</a></li><li class="toc-l2"><a href="#a29">#29 — The Dog Won't Come Inside</a></li><li class="toc-l2"><a href="#a30">#30 — The Group Chat</a></li><li class="toc-l2"><a href="#a31">#31 — Vacancy</a></li><li class="toc-l2"><a href="#a32">#32 — The Voicemail</a></li><li class="toc-l2"><a href="#a33">#33 — The Slow Room</a></li><li class="toc-l2"><a href="#a34">#34 — Do Not Feed</a></li><li class="toc-l2"><a href="#a35">#35 — The Reunion</a></li><li class="toc-l2"><a href="#a36">#36 — Hold Music</a></li><li class="toc-l2"><a href="#a37">#37 — The Cartographer</a></li><li class="toc-l2"><a href="#a38">#38 — Lights in the Field</a></li><li class="toc-l2"><a href="#a39">#39 — The Tenant Above Me Died</a></li><li class="toc-l2"><a href="#a40">#40 — Found Footage Channel</a></li><li class="toc-l2"><a href="#a41">#41 — The Quiet Hour</a></li><li class="toc-l2"><a href="#a42">#42 — The Babysitting Job</a></li><li class="toc-l2"><a href="#a43">#43 — Black Box</a></li><li class="toc-l2"><a href="#a44">#44 — The New Skin</a></li><li class="toc-l2"><a href="#a45">#45 — Echo Location</a></li><li class="toc-l2"><a href="#a46">#46 — The Painting Sells</a></li><li class="toc-l2"><a href="#a47">#47 — The Long Blink</a></li><li class="toc-l2"><a href="#a48">#48 — Customer Reviews</a></li><li class="toc-l2"><a href="#a49">#49 — The Frequency</a></li><li class="toc-l2"><a href="#a50">#50 — The Last Subscriber</a></li><li class="toc-l1"><a href="#vol2">VOLUME 2 — वो गली (50)</a></li><li class="toc-l2"><a href="#g1">#1 — आख़िरी बस अड्डा</a></li><li class="toc-l2"><a href="#g2">#2 — पीपल वाली अम्मा</a></li><li class="toc-l2"><a href="#g3">#3 — कुएँ की परछाई</a></li><li class="toc-l2"><a href="#g4">#4 — रात 2 बजे की सीढ़ियाँ</a></li><li class="toc-l2"><a href="#g5">#5 — डायन का गाँव</a></li><li class="toc-l2"><a href="#g6">#6 — लिफ्ट नंबर 6</a></li><li class="toc-l2"><a href="#g7">#7 — नानी की लोरी</a></li><li class="toc-l2"><a href="#g8">#8 — श्मशान का चौकीदार</a></li><li class="toc-l2"><a href="#g9">#9 — वो गली जो रात को आती है</a></li><li class="toc-l2"><a href="#g10">#10 — खेत की मेड़</a></li><li class="toc-l2"><a href="#g11">#11 — ट्यूबलाइट</a></li><li class="toc-l2"><a href="#g12">#12 — मंदिर की आख़िरी आरती</a></li><li class="toc-l2"><a href="#g13">#13 — दुल्हन का डोला</a></li><li class="toc-l2"><a href="#g14">#14 — छत वाला कमरा</a></li><li class="toc-l2"><a href="#g15">#15 — WhatsApp पर माँ</a></li><li class="toc-l2"><a href="#g16">#16 — आख़िरी लोकल ट्रेन</a></li><li class="toc-l2"><a href="#g17">#17 — नीम का पेड़</a></li><li class="toc-l2"><a href="#g18">#18 — हॉस्टल का कमरा नंबर 13</a></li><li class="toc-l2"><a href="#g19">#19 — अमावस की रात का मेहमान</a></li><li class="toc-l2"><a href="#g20">#20 — फोटो में चाचा</a></li><li class="toc-l2"><a href="#g21">#21 — खाट के नीचे</a></li><li class="toc-l2"><a href="#g22">#22 — बारात जो लौटी नहीं</a></li><li class="toc-l2"><a href="#g23">#23 — दादी की कोठरी</a></li><li class="toc-l2"><a href="#g24">#24 — रिक्शे वाला</a></li><li class="toc-l2"><a href="#g25">#25 — स्कूल की घंटी</a></li><li class="toc-l2"><a href="#g26">#26 — नल से आती आवाज़</a></li><li class="toc-l2"><a href="#g27">#27 — सौतेली परछाई</a></li><li class="toc-l2"><a href="#g28">#28 — टोनही का खेत</a></li><li class="toc-l2"><a href="#g29">#29 — आख़िरी मरीज़</a></li><li class="toc-l2"><a href="#g30">#30 — गुड़िया</a></li><li class="toc-l2"><a href="#g31">#31 — पुल के नीचे</a></li><li class="toc-l2"><a href="#g32">#32 — सावन की रात</a></li><li class="toc-l2"><a href="#g33">#33 — किराये का कमरा</a></li><li class="toc-l2"><a href="#g34">#34 — दादा का रेडियो</a></li><li class="toc-l2"><a href="#g35">#35 — चौराहे का दीया</a></li><li class="toc-l2"><a href="#g36">#36 — वो जो छत पर रहती है</a></li><li class="toc-l2"><a href="#g37">#37 — आख़िरी कॉल</a></li><li class="toc-l2"><a href="#g38">#38 — नौकरानी</a></li><li class="toc-l2"><a href="#g39">#39 — गाँव का आख़िरी घर</a></li><li class="toc-l2"><a href="#g40">#40 — परीक्षा की रात</a></li><li class="toc-l2"><a href="#g41">#41 — बिजली वाला</a></li><li class="toc-l2"><a href="#g42">#42 — हल्दी की रात</a></li><li class="toc-l2"><a href="#g43">#43 — कब्रिस्तान वाला रास्ता</a></li><li class="toc-l2"><a href="#g44">#44 — पंखे की आवाज़</a></li><li class="toc-l2"><a href="#g45">#45 — आधी रात का दूधवाला</a></li><li class="toc-l2"><a href="#g46">#46 — पुरानी डायरी</a></li><li class="toc-l2"><a href="#g47">#47 — भैरों बाबा का चबूतरा</a></li><li class="toc-l2"><a href="#g48">#48 — आख़िरी सवारी</a></li><li class="toc-l2"><a href="#g49">#49 — माँ का कमरा</a></li><li class="toc-l2"><a href="#g50">#50 — वो गली का राज़ (Finale)</a></li></ul>
+</section>
+<div class="page-sheet"><section class="vol-divider" id="vol1"><div><div class="vd-kicker">VOLUME 1</div><h1 class="vd-title">THE ALLEY VERSE</h1><div class="vd-sub">THE ALLEY VERSE · 50 Stories</div><div class="vd-mark">🏮</div></div></section>
+<section class="story" id="a1">
+<h3 class="story-title">THE ALLEY VERSE · #1 — The House That Remembers</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Daniel Hayes का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The House That Remembers", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a2">
+<h3 class="story-title">THE ALLEY VERSE · #2 — Static</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Mara Quinn का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Static", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a3">
+<h3 class="story-title">THE ALLEY VERSE · #3 — The 4 AM Neighbor</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Elias Ward का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The 4 AM Neighbor", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a4">
+<h3 class="story-title">THE ALLEY VERSE · #4 — The Long Drive Home</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Nora Bennett का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Long Drive Home", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a5">
+<h3 class="story-title">THE ALLEY VERSE · #5 — Tenant Below</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Adrian Cole का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Tenant Below", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a6">
+<h3 class="story-title">THE ALLEY VERSE · #6 — The Photograph App</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Vera Lange का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Photograph App", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a7">
+<h3 class="story-title">THE ALLEY VERSE · #7 — Nightshift at the Aquarium</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Thomas Reed का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Nightshift at the Aquarium", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a8">
+<h3 class="story-title">THE ALLEY VERSE · #8 — The Quiet Town</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Iris Vance का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Quiet Town", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a9">
+<h3 class="story-title">THE ALLEY VERSE · #9 — The Sleep Study</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Marcus Hale का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Sleep Study", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a10">
+<h3 class="story-title">THE ALLEY VERSE · #10 — Floor 13</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Lena Frost का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Floor 13", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a11">
+<h3 class="story-title">THE ALLEY VERSE · #11 — The Babysitter's Tape</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Daniel Hayes का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Babysitter's Tape", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a12">
+<h3 class="story-title">THE ALLEY VERSE · #12 — The Mirror Doesn't Blink</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Mara Quinn का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Mirror Doesn't Blink", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a13">
+<h3 class="story-title">THE ALLEY VERSE · #13 — Dead Air Podcast</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Elias Ward का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Dead Air Podcast", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a14">
+<h3 class="story-title">THE ALLEY VERSE · #14 — The Cul-de-sac</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Nora Bennett का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Cul-de-sac", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a15">
+<h3 class="story-title">THE ALLEY VERSE · #15 — Smile Detected</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Adrian Cole का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Smile Detected", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a16">
+<h3 class="story-title">THE ALLEY VERSE · #16 — The Substitute</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Vera Lange का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Substitute", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a17">
+<h3 class="story-title">THE ALLEY VERSE · #17 — Low Tide</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Thomas Reed का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Low Tide", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a18">
+<h3 class="story-title">THE ALLEY VERSE · #18 — The Recommendation</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Iris Vance का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Recommendation", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a19">
+<h3 class="story-title">THE ALLEY VERSE · #19 — Apartment 0</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Marcus Hale का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Apartment 0", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a20">
+<h3 class="story-title">THE ALLEY VERSE · #20 — The Night Bus</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Lena Frost का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Night Bus", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a21">
+<h3 class="story-title">THE ALLEY VERSE · #21 — The Family Photo</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Daniel Hayes का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Family Photo", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a22">
+<h3 class="story-title">THE ALLEY VERSE · #22 — Buffering</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Mara Quinn का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Buffering", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a23">
+<h3 class="story-title">THE ALLEY VERSE · #23 — The Other Tenant</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Elias Ward का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Other Tenant", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a24">
+<h3 class="story-title">THE ALLEY VERSE · #24 — Signal Lost</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Nora Bennett का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Signal Lost", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a25">
+<h3 class="story-title">THE ALLEY VERSE · #25 — The Waiting Room</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Adrian Cole का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Waiting Room", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a26">
+<h3 class="story-title">THE ALLEY VERSE · #26 — Pareidolia</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Vera Lange का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Pareidolia", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a27">
+<h3 class="story-title">THE ALLEY VERSE · #27 — The Inheritance</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Thomas Reed का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Inheritance", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a28">
+<h3 class="story-title">THE ALLEY VERSE · #28 — Replay</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Iris Vance का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Replay", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a29">
+<h3 class="story-title">THE ALLEY VERSE · #29 — The Dog Won't Come Inside</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Marcus Hale का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Dog Won't Come Inside", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a30">
+<h3 class="story-title">THE ALLEY VERSE · #30 — The Group Chat</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Lena Frost का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Group Chat", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a31">
+<h3 class="story-title">THE ALLEY VERSE · #31 — Vacancy</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Daniel Hayes का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Vacancy", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a32">
+<h3 class="story-title">THE ALLEY VERSE · #32 — The Voicemail</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Mara Quinn का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Voicemail", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a33">
+<h3 class="story-title">THE ALLEY VERSE · #33 — The Slow Room</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Elias Ward का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Slow Room", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a34">
+<h3 class="story-title">THE ALLEY VERSE · #34 — Do Not Feed</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Nora Bennett का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Do Not Feed", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a35">
+<h3 class="story-title">THE ALLEY VERSE · #35 — The Reunion</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Adrian Cole का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Reunion", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a36">
+<h3 class="story-title">THE ALLEY VERSE · #36 — Hold Music</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Vera Lange का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Hold Music", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a37">
+<h3 class="story-title">THE ALLEY VERSE · #37 — The Cartographer</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Thomas Reed का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Cartographer", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a38">
+<h3 class="story-title">THE ALLEY VERSE · #38 — Lights in the Field</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Iris Vance का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Lights in the Field", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a39">
+<h3 class="story-title">THE ALLEY VERSE · #39 — The Tenant Above Me Died</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Marcus Hale का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Tenant Above Me Died", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a40">
+<h3 class="story-title">THE ALLEY VERSE · #40 — Found Footage Channel</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Lena Frost का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Found Footage Channel", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a41">
+<h3 class="story-title">THE ALLEY VERSE · #41 — The Quiet Hour</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Daniel Hayes का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Quiet Hour", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a42">
+<h3 class="story-title">THE ALLEY VERSE · #42 — The Babysitting Job</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Mara Quinn का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Babysitting Job", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a43">
+<h3 class="story-title">THE ALLEY VERSE · #43 — Black Box</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Elias Ward का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Black Box", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a44">
+<h3 class="story-title">THE ALLEY VERSE · #44 — The New Skin</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Nora Bennett का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The New Skin", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a45">
+<h3 class="story-title">THE ALLEY VERSE · #45 — Echo Location</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Adrian Cole का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Echo Location", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a46">
+<h3 class="story-title">THE ALLEY VERSE · #46 — The Painting Sells</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Vera Lange का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Painting Sells", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a47">
+<h3 class="story-title">THE ALLEY VERSE · #47 — The Long Blink</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Thomas Reed का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Long Blink", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a48">
+<h3 class="story-title">THE ALLEY VERSE · #48 — Customer Reviews</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Iris Vance का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "Customer Reviews", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a49">
+<h3 class="story-title">THE ALLEY VERSE · #49 — The Frequency</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Marcus Hale का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Frequency", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="a50">
+<h3 class="story-title">THE ALLEY VERSE · #50 — The Last Subscriber</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (Lena Frost का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "The Last Subscriber", single focal subject, A24 + Netflix horror, cinematic 35mm, cold desaturated palette, volumetric fog, deep shadows, single practical light source, photorealistic, film grain, no gore, palette: black, charcoal grey, subtle blood-red, warm amber light, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-4 bold English words (e.g., "DON'T LOOK" / "IT REMEMBERS")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="vol-divider" id="vol2"><div><div class="vd-kicker">VOLUME 2</div><h1 class="vd-title">वो गली</h1><div class="vd-sub">वो गली · 50 कहानियाँ</div><div class="vd-mark">🏮</div></div></section>
+<section class="story" id="g1">
+<h3 class="story-title">वो गली · #1 — आख़िरी बस अड्डा</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (रोहित का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "आख़िरी बस अड्डा", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g2">
+<h3 class="story-title">वो गली · #2 — पीपल वाली अम्मा</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (मीरा का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "पीपल वाली अम्मा", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g3">
+<h3 class="story-title">वो गली · #3 — कुएँ की परछाई</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (सुरेश काका का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "कुएँ की परछाई", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g4">
+<h3 class="story-title">वो गली · #4 — रात 2 बजे की सीढ़ियाँ</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (अंजली का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "रात 2 बजे की सीढ़ियाँ", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g5">
+<h3 class="story-title">वो गली · #5 — डायन का गाँव</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (विक्रम का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "डायन का गाँव", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g6">
+<h3 class="story-title">वो गली · #6 — लिफ्ट नंबर 6</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (शांति देवी का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "लिफ्ट नंबर 6", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g7">
+<h3 class="story-title">वो गली · #7 — नानी की लोरी</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (अरुण का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "नानी की लोरी", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g8">
+<h3 class="story-title">वो गली · #8 — श्मशान का चौकीदार</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (कविता का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "श्मशान का चौकीदार", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g9">
+<h3 class="story-title">वो गली · #9 — वो गली जो रात को आती है</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (मोहन का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "वो गली जो रात को आती है", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g10">
+<h3 class="story-title">वो गली · #10 — खेत की मेड़</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (रेखा का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "खेत की मेड़", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g11">
+<h3 class="story-title">वो गली · #11 — ट्यूबलाइट</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (रोहित का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "ट्यूबलाइट", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g12">
+<h3 class="story-title">वो गली · #12 — मंदिर की आख़िरी आरती</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (मीरा का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "मंदिर की आख़िरी आरती", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g13">
+<h3 class="story-title">वो गली · #13 — दुल्हन का डोला</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (सुरेश काका का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "दुल्हन का डोला", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g14">
+<h3 class="story-title">वो गली · #14 — छत वाला कमरा</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (अंजली का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "छत वाला कमरा", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g15">
+<h3 class="story-title">वो गली · #15 — WhatsApp पर माँ</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (विक्रम का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "WhatsApp पर माँ", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g16">
+<h3 class="story-title">वो गली · #16 — आख़िरी लोकल ट्रेन</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (शांति देवी का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "आख़िरी लोकल ट्रेन", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g17">
+<h3 class="story-title">वो गली · #17 — नीम का पेड़</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (अरुण का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "नीम का पेड़", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g18">
+<h3 class="story-title">वो गली · #18 — हॉस्टल का कमरा नंबर 13</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (कविता का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "हॉस्टल का कमरा नंबर 13", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g19">
+<h3 class="story-title">वो गली · #19 — अमावस की रात का मेहमान</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (मोहन का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "अमावस की रात का मेहमान", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g20">
+<h3 class="story-title">वो गली · #20 — फोटो में चाचा</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (रेखा का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "फोटो में चाचा", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g21">
+<h3 class="story-title">वो गली · #21 — खाट के नीचे</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (रोहित का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "खाट के नीचे", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g22">
+<h3 class="story-title">वो गली · #22 — बारात जो लौटी नहीं</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (मीरा का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "बारात जो लौटी नहीं", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g23">
+<h3 class="story-title">वो गली · #23 — दादी की कोठरी</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (सुरेश काका का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "दादी की कोठरी", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g24">
+<h3 class="story-title">वो गली · #24 — रिक्शे वाला</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (अंजली का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "रिक्शे वाला", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g25">
+<h3 class="story-title">वो गली · #25 — स्कूल की घंटी</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (विक्रम का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "स्कूल की घंटी", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g26">
+<h3 class="story-title">वो गली · #26 — नल से आती आवाज़</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (शांति देवी का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "नल से आती आवाज़", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g27">
+<h3 class="story-title">वो गली · #27 — सौतेली परछाई</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (अरुण का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "सौतेली परछाई", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g28">
+<h3 class="story-title">वो गली · #28 — टोनही का खेत</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (कविता का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "टोनही का खेत", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g29">
+<h3 class="story-title">वो गली · #29 — आख़िरी मरीज़</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (मोहन का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "आख़िरी मरीज़", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g30">
+<h3 class="story-title">वो गली · #30 — गुड़िया</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (रेखा का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "गुड़िया", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g31">
+<h3 class="story-title">वो गली · #31 — पुल के नीचे</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (रोहित का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "पुल के नीचे", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g32">
+<h3 class="story-title">वो गली · #32 — सावन की रात</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (मीरा का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "सावन की रात", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g33">
+<h3 class="story-title">वो गली · #33 — किराये का कमरा</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (सुरेश काका का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "किराये का कमरा", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g34">
+<h3 class="story-title">वो गली · #34 — दादा का रेडियो</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (अंजली का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "दादा का रेडियो", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g35">
+<h3 class="story-title">वो गली · #35 — चौराहे का दीया</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (विक्रम का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "चौराहे का दीया", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g36">
+<h3 class="story-title">वो गली · #36 — वो जो छत पर रहती है</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (शांति देवी का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "वो जो छत पर रहती है", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g37">
+<h3 class="story-title">वो गली · #37 — आख़िरी कॉल</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (अरुण का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "आख़िरी कॉल", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g38">
+<h3 class="story-title">वो गली · #38 — नौकरानी</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (कविता का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "नौकरानी", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g39">
+<h3 class="story-title">वो गली · #39 — गाँव का आख़िरी घर</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (मोहन का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "गाँव का आख़िरी घर", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g40">
+<h3 class="story-title">वो गली · #40 — परीक्षा की रात</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (रेखा का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "परीक्षा की रात", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g41">
+<h3 class="story-title">वो गली · #41 — बिजली वाला</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (रोहित का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "बिजली वाला", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g42">
+<h3 class="story-title">वो गली · #42 — हल्दी की रात</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (मीरा का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "हल्दी की रात", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g43">
+<h3 class="story-title">वो गली · #43 — कब्रिस्तान वाला रास्ता</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (सुरेश काका का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "कब्रिस्तान वाला रास्ता", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g44">
+<h3 class="story-title">वो गली · #44 — पंखे की आवाज़</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (अंजली का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "पंखे की आवाज़", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g45">
+<h3 class="story-title">वो गली · #45 — आधी रात का दूधवाला</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (विक्रम का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "आधी रात का दूधवाला", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g46">
+<h3 class="story-title">वो गली · #46 — पुरानी डायरी</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (शांति देवी का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "पुरानी डायरी", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g47">
+<h3 class="story-title">वो गली · #47 — भैरों बाबा का चबूतरा</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (अरुण का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "भैरों बाबा का चबूतरा", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g48">
+<h3 class="story-title">वो गली · #48 — आख़िरी सवारी</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (कविता का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "आख़िरी सवारी", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g49">
+<h3 class="story-title">वो गली · #49 — माँ का कमरा</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (मोहन का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "माँ का कमरा", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section>
+<section class="story" id="g50">
+<h3 class="story-title">वो गली · #50 — वो गली का राज़ (Finale)</h3>
+<p class="kv"><span class="kvk">Thumbnail Concept:</span> एक फोकल subject (रेखा का डरा चेहरा या entity की परछाई), 80% अँधेरा + एक रोशनी।</p>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt</div><code>YouTube thumbnail for "वो गली का राज़ (Finale)", single focal subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, empty space for bold text, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text:</span> 2-3 बड़े देवनागरी शब्द (जैसे: "वो लौटी" / "रात 2 बजे" / "मत जाना")</p>
+<p class="kv"><span class="kvk">CTR Psychology:</span> Curiosity gap — सवाल उठाओ, जवाब मत दो; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B।</p>
+</section></div>
+</body></html>

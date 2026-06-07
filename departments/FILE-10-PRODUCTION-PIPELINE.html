@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="hi"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>FILE 10 — Production Pipeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Serif+Devanagari:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16151a;--muted:#5b5660;--line:#ddd7e0;--accent:#3a2a6a;--accent2:#b8862f;}
+@page{size:A4;margin:18mm 16mm 20mm 16mm;@bottom-center{content:counter(page);font-family:"Noto Serif",serif;font-size:9pt;color:#999;}}
+*{box-sizing:border-box;}html,body{margin:0;padding:0;background:#525659;}
+body{font-family:"Noto Serif Devanagari","Noto Serif",Georgia,serif;color:var(--ink);line-height:1.55;font-size:10.8pt;}
+.page-sheet{background:#fff;width:210mm;min-height:297mm;margin:10mm auto;padding:22mm 18mm;box-shadow:0 4px 22px rgba(0,0,0,.4);}
+@media print{html,body{background:#fff;}.page-sheet{width:auto;min-height:auto;margin:0;padding:0;box-shadow:none;}a{color:var(--ink);text-decoration:none;}.no-print{display:none!important;}}
+h1,h2,h3{font-family:"Noto Sans Devanagari","Cinzel",serif;line-height:1.25;}
+.story-title{font-size:13pt;color:#fff;background:linear-gradient(90deg,var(--accent),#222);padding:8px 12px;border-radius:6px;margin:0 0 .6em;break-after:avoid;}
+.pkg-part{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:11pt;color:var(--accent);margin:1em 0 .35em;padding-bottom:3px;border-bottom:2px solid var(--accent2);break-after:avoid;}
+p{margin:.3em 0;}.kv{margin:.22em 0;text-align:justify;}.kvk{font-weight:700;color:#2a2730;}
+.note-line{font-size:8.8pt;color:var(--muted);font-style:italic;margin:.2em 0 .5em;}
+ul,ol{margin:.25em 0 .5em;padding-left:1.3em;}li{margin:.12em 0;}
+code{font-family:"JetBrains Mono",monospace;font-size:8.8pt;}
+.prompt{background:#f6f3f8;border:1px solid #e3dceb;border-left:3px solid var(--accent2);border-radius:5px;padding:7px 10px;margin:.4em 0;break-inside:avoid;}
+.prompt-label{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:8.6pt;color:var(--accent);margin-bottom:3px;}
+.prompt code{display:block;color:#241f2b;line-height:1.45;white-space:pre-wrap;word-break:break-word;}
+.story{break-before:page;padding-top:2mm;}
+.cover{background:radial-gradient(120% 80% at 50% 16%,#2a0d14 0%,#140a10 45%,#060406 100%);color:#f3eee9;min-height:297mm;width:210mm;margin:10mm auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;box-shadow:0 4px 22px rgba(0,0,0,.5);}
+.cover .lamp{font-size:42pt;filter:drop-shadow(0 0 18px rgba(184,134,47,.7));margin-bottom:6mm;}
+.cover .filecode{font-family:"Cinzel",serif;letter-spacing:6px;color:var(--accent2);font-size:13pt;}
+.cover .brand{font-family:"Cinzel",serif;font-size:22pt;letter-spacing:1px;margin:6mm 8mm 0;}
+.cover .devnag{font-family:"Noto Serif Devanagari",serif;font-weight:700;}
+.cover .dept{font-family:"Noto Sans Devanagari",sans-serif;font-size:26pt;color:#e6d8c0;margin:8mm 8mm 0;}
+.cover .sub{margin-top:3mm;color:#b9aa98;font-size:12pt;}
+.cover .rule{width:55mm;border:0;border-top:1px solid #5a4636;margin:9mm auto;}
+.cover .foot{position:absolute;bottom:18mm;font-size:9pt;color:#8a7d72;letter-spacing:1px;}
+@media print{.cover{width:auto;min-height:100vh;margin:0;break-after:page;}}
+.copyright{font-size:10pt;color:var(--muted);}.copyright h2{color:var(--ink);}
+.vol-divider{break-before:page;break-after:page;min-height:230mm;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(160deg,#fbf7f3,#f3ece4);}
+.vd-kicker{font-family:"Cinzel",serif;letter-spacing:7px;color:var(--accent2);font-size:13pt;}
+.vd-title{font-family:"Noto Sans Devanagari",sans-serif;font-size:28pt;color:var(--accent);margin:6mm 0 3mm;}
+.vd-sub{font-family:"Noto Sans Devanagari",sans-serif;font-size:12pt;color:#5b5660;}
+.vd-mark{margin-top:8mm;font-size:24pt;}
+h1.toch{font-size:18pt;border-bottom:3px solid var(--accent);padding-bottom:.2em;}
+.toc{list-style:none;padding:0;margin:0;column-count:2;column-gap:10mm;font-size:9pt;}
+.toc li{margin:.05em 0;break-inside:avoid;}.toc a{text-decoration:none;color:#3a3640;}
+.toc-l1{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:10.5pt;color:var(--accent);margin-top:.5em!important;column-span:all;border-bottom:1px solid var(--line);padding-bottom:2px;}
+.banner-note{background:#fff7e6;border:1px solid #e8cf94;border-radius:6px;padding:10px 14px;margin:1em 0;font-size:9.5pt;color:#6b5414;}
+.intro p{text-align:justify;}
+</style></head><body>
+<section class="cover">
+<div class="lamp">🏮</div>
+<div class="filecode">FILE 10</div>
+<div class="brand">THE ALLEY VERSE <span style="color:var(--accent2)">&amp;</span> <span class="devnag">वो गली</span></div>
+<hr class="rule"/>
+<div class="dept">Production Pipeline</div>
+<div class="sub">Research → Writing → Image → Video → Editing → Publishing → Analytics</div>
+<div class="foot">ULTIMATE HORROR CONTENT FACTORY · DEPARTMENT FILE 10/10</div>
+</section>
+<section class="page-sheet copyright">
+<h2>Copyright &amp; Notice</h2>
+<p><strong>THE ALLEY VERSE &amp; वो गली — Ultimate Horror Content Factory</strong></p>
+<p>Production Pipeline · संस्करण 1.0 · 2026</p><hr/>
+<p>© 2026 THE ALLEY VERSE &amp; वो गली. सर्वाधिकार सुरक्षित (All Rights Reserved)।</p>
+<p>यह फाइल इस प्रोडक्शन सिस्टम के एक विभाग (department) का दस्तावेज़ है। सभी 100 कहानियाँ मौलिक हैं।</p>
+<p class="copyright">नोट: AI image/video prompts English में हैं (मॉडल की ज़रूरत); बाकी सामग्री हिंदी में। PDF बनाने के लिए इस HTML को Chrome में खोलकर Print → Save as PDF (A4) करें।</p>
+</section>
+<section class="page-sheet">
+<h1 class="toch">विषय-सूची · Table of Contents</h1>
+<p class="banner-note no-print">💡 TOC clickable है — किसी भी आइटम पर क्लिक करके सीधे वहाँ जाएँ।</p>
+<ul class="toc"><li class="toc-l1"><a href="#intro">Production Pipeline — Overview</a></li><li class="toc-l1"><a href="#wf1">Research Workflow</a></li><li class="toc-l1"><a href="#wf2">Writing Workflow</a></li><li class="toc-l1"><a href="#wf3">Image Workflow</a></li><li class="toc-l1"><a href="#wf4">Video Workflow</a></li><li class="toc-l1"><a href="#wf5">Editing Workflow</a></li><li class="toc-l1"><a href="#wf6">Publishing Workflow</a></li><li class="toc-l1"><a href="#wf7">Analytics Workflow</a></li></ul>
+</section>
+<div class="page-sheet"><section class="story" id="intro"><h3 class="story-title">Production Pipeline — Overview</h3><p class="kv">यह विभाग पूरे स्टूडियो का operating system है — आइडिया से published वीडियो तक हर चरण के SOP।</p></section>
+<section class="story" id="wf1"><h3 class="story-title">Research Workflow</h3>
+<div class="pkg-part">Steps</div>
+<ul><li>स्रोत: Reddit (r/nosleep), urban legends, गाँव की सच्ची अफ़वाहें, बुज़ुर्गों की कहानियाँ</li><li>AI से 10 आइडिया → सबसे डरावना चुनें</li><li>हर आइडिया को 100-stories master से cross-check करें (दोहराव से बचें)</li><li>टारगेट दर्शक व pillar (urban/rural/folklore/psychological) तय करें</li></ul>
+</section>
+<section class="story" id="wf2"><h3 class="story-title">Writing Workflow</h3>
+<div class="pkg-part">Steps</div>
+<ul><li>Story file से structure लें (गली फॉर्मूला 7 beats)</li><li>AI draft → खुद emotion + देसी/cinematic touch जोड़ें</li><li>ज़ोर से पढ़कर जाँचें (narration के लिए लिखा है)</li><li>Hook 15s tight; अंत बेचैन छोड़ने वाला</li></ul>
+</section>
+<section class="story" id="wf3"><h3 class="story-title">Image Workflow</h3>
+<div class="pkg-part">Steps</div>
+<ul><li>Character reference image (fixed seed) पहले बनाएँ</li><li>AI-IMAGE-PROMPTS file से 7 prompts चलाएँ</li><li>Consistency check: चेहरा/पहनावा/palette हर image में एक जैसा</li><li>Entity हमेशा आधा छाया में</li></ul>
+</section>
+<section class="story" id="wf4"><h3 class="story-title">Video Workflow</h3>
+<div class="pkg-part">Steps</div>
+<ul><li>AI-VIDEO-PROMPTS file के 5 beats generate करें</li><li>कम motion, slow push-in; तेज़ pan नहीं</li><li>2.5D animation file से parallax/zoom लगाएँ</li><li>Lighting व camera direction फॉलो करें</li></ul>
+</section>
+<section class="story" id="wf5"><h3 class="story-title">Editing Workflow</h3>
+<div class="pkg-part">Steps</div>
+<ul><li>Voiceover + visuals sync</li><li>Slow zoom/parallax + fog overlay + color grade (palette)</li><li>Sound mix: VO साफ़, music low; scare से पहले silence</li><li>3 Shorts काटें (re-purpose)</li></ul>
+</section>
+<section class="story" id="wf6"><h3 class="story-title">Publishing Workflow</h3>
+<div class="pkg-part">Steps</div>
+<ul><li>Title + thumbnail (A/B) — SEO file से</li><li>Description + timestamps + hashtags + tags + सही playlist</li><li>End screen + cards + captions</li><li>सही समय पर schedule; पहले 1 घंटे comments का जवाब + share</li></ul>
+</section>
+<section class="story" id="wf7"><h3 class="story-title">Analytics Workflow</h3>
+<div class="pkg-part">Steps</div>
+<ul><li>CTR (टारगेट 5%+) — कम हो तो thumbnail/title बदलें</li><li>Avg View Duration (50%+) + retention graph — drop वाली जगह सुधारें</li><li>पहले 30s retention (70%+) — hook tighten</li><li>साप्ताहिक: best वीडियो जैसा और; मासिक: best pillar पर फोकस</li></ul>
+</section></div>
+</body></html>
