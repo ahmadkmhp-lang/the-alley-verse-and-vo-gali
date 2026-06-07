@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="hi"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>PART 14 — Reusable Prompt Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Serif+Devanagari:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16151a;--muted:#5b5660;--line:#ddd7e0;--accent:#3a2a6a;--accent2:#b8862f;}
+@page{size:A4;margin:18mm 16mm 20mm 16mm;@bottom-center{content:counter(page);font-family:"Noto Serif",serif;font-size:9pt;color:#999;}}
+*{box-sizing:border-box;}html,body{margin:0;padding:0;background:#525659;}
+body{font-family:"Noto Serif Devanagari","Noto Serif",Georgia,serif;color:var(--ink);line-height:1.55;font-size:10.8pt;}
+.page-sheet{background:#fff;width:210mm;min-height:297mm;margin:10mm auto;padding:22mm 18mm;box-shadow:0 4px 22px rgba(0,0,0,.4);}
+@media print{html,body{background:#fff;}.page-sheet{width:auto;min-height:auto;margin:0;padding:0;box-shadow:none;}a{color:var(--ink);text-decoration:none;}.no-print{display:none!important;}}
+h1,h2,h3{font-family:"Noto Sans Devanagari","Cinzel",serif;line-height:1.25;}
+.story-title{font-size:13pt;color:#fff;background:linear-gradient(90deg,var(--accent),#222);padding:8px 12px;border-radius:6px;margin:0 0 .6em;break-after:avoid;}
+.pkg-part{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:11pt;color:var(--accent);margin:1em 0 .35em;padding-bottom:3px;border-bottom:2px solid var(--accent2);break-after:avoid;}
+p{margin:.3em 0;}.kv{margin:.22em 0;text-align:justify;}.kvk{font-weight:700;color:#2a2730;}
+.note-line{font-size:8.8pt;color:var(--muted);font-style:italic;margin:.2em 0 .5em;}
+ul,ol{margin:.25em 0 .5em;padding-left:1.3em;}li{margin:.12em 0;}
+code{font-family:"JetBrains Mono",monospace;font-size:8.8pt;}
+.prompt{background:#f6f3f8;border:1px solid #e3dceb;border-left:3px solid var(--accent2);border-radius:5px;padding:7px 10px;margin:.4em 0;break-inside:avoid;}
+.prompt-label{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:8.6pt;color:var(--accent);margin-bottom:3px;}
+.prompt code{display:block;color:#241f2b;line-height:1.45;white-space:pre-wrap;word-break:break-word;}
+.story{break-before:page;padding-top:2mm;}
+.cover{background:radial-gradient(120% 80% at 50% 16%,#2a0d14 0%,#140a10 45%,#060406 100%);color:#f3eee9;min-height:297mm;width:210mm;margin:10mm auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;box-shadow:0 4px 22px rgba(0,0,0,.5);}
+.cover .lamp{font-size:42pt;filter:drop-shadow(0 0 18px rgba(184,134,47,.7));margin-bottom:6mm;}
+.cover .filecode{font-family:"Cinzel",serif;letter-spacing:6px;color:var(--accent2);font-size:13pt;}
+.cover .brand{font-family:"Cinzel",serif;font-size:22pt;letter-spacing:1px;margin:6mm 8mm 0;}
+.cover .devnag{font-family:"Noto Serif Devanagari",serif;font-weight:700;}
+.cover .dept{font-family:"Noto Sans Devanagari",sans-serif;font-size:26pt;color:#e6d8c0;margin:8mm 8mm 0;}
+.cover .sub{margin-top:3mm;color:#b9aa98;font-size:12pt;}
+.cover .rule{width:55mm;border:0;border-top:1px solid #5a4636;margin:9mm auto;}
+.cover .foot{position:absolute;bottom:18mm;font-size:9pt;color:#8a7d72;letter-spacing:1px;}
+@media print{.cover{width:auto;min-height:100vh;margin:0;break-after:page;}}
+.copyright{font-size:10pt;color:var(--muted);}.copyright h2{color:var(--ink);}
+.vol-divider{break-before:page;break-after:page;min-height:230mm;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(160deg,#fbf7f3,#f3ece4);}
+.vd-kicker{font-family:"Cinzel",serif;letter-spacing:7px;color:var(--accent2);font-size:13pt;}
+.vd-title{font-family:"Noto Sans Devanagari",sans-serif;font-size:28pt;color:var(--accent);margin:6mm 0 3mm;}
+.vd-sub{font-family:"Noto Sans Devanagari",sans-serif;font-size:12pt;color:#5b5660;}
+.vd-mark{margin-top:8mm;font-size:24pt;}
+h1.toch{font-size:18pt;border-bottom:3px solid var(--accent);padding-bottom:.2em;}
+.toc{list-style:none;padding:0;margin:0;column-count:2;column-gap:10mm;font-size:9pt;}
+.toc li{margin:.05em 0;break-inside:avoid;}.toc a{text-decoration:none;color:#3a3640;}
+.toc-l1{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:10.5pt;color:var(--accent);margin-top:.5em!important;column-span:all;border-bottom:1px solid var(--line);padding-bottom:2px;}
+.banner-note{background:#fff7e6;border:1px solid #e8cf94;border-radius:6px;padding:10px 14px;margin:1em 0;font-size:9.5pt;color:#6b5414;}
+.intro p{text-align:justify;}
+</style></head><body>
+<section class="cover">
+<div class="lamp">🏮</div>
+<div class="filecode">PART 14</div>
+<div class="brand">THE ALLEY VERSE <span style="color:var(--accent2)">&amp;</span> <span class="devnag">वो गली</span></div>
+<hr class="rule"/>
+<div class="dept">Reusable Prompt Library</div>
+<div class="sub">12 Templates × Purpose · Inputs · Outputs · Prompt · Example · Advanced · Professional</div>
+<div class="foot">ULTIMATE HORROR CONTENT FACTORY · DOCUMENT 3/4</div>
+</section>
+<section class="page-sheet copyright">
+<h2>Copyright &amp; Notice</h2>
+<p><strong>THE ALLEY VERSE &amp; वो गली — Ultimate Horror Content Factory</strong></p>
+<p>Reusable Prompt Library · संस्करण 1.0 · 2026</p><hr/>
+<p>© 2026 THE ALLEY VERSE &amp; वो गली. सर्वाधिकार सुरक्षित (All Rights Reserved)।</p>
+<p>यह फाइल इस प्रोडक्शन सिस्टम के एक विभाग (department) का दस्तावेज़ है। सभी 100 कहानियाँ मौलिक हैं।</p>
+<p class="copyright">नोट: AI image/video prompts English में हैं (मॉडल की ज़रूरत); बाकी सामग्री हिंदी में। PDF बनाने के लिए इस HTML को Chrome में खोलकर Print → Save as PDF (A4) करें।</p>
+</section>
+<section class="page-sheet">
+<h1 class="toch">विषय-सूची · Table of Contents</h1>
+<p class="banner-note no-print">💡 TOC clickable है — किसी भी आइटम पर क्लिक करके सीधे वहाँ जाएँ।</p>
+<ul class="toc"><li class="toc-l1"><a href="#intro">Overview</a></li><li class="toc-l2"><a href="#t1">Template 1 — Story Generation Prompt</a></li><li class="toc-l2"><a href="#t2">Template 2 — Script Writing Prompt</a></li><li class="toc-l2"><a href="#t3">Template 3 — Character Creation Prompt</a></li><li class="toc-l2"><a href="#t4">Template 4 — Scene Breakdown Prompt</a></li><li class="toc-l2"><a href="#t5">Template 5 — AI Image Prompt Template</a></li><li class="toc-l2"><a href="#t6">Template 6 — AI Video Generation Prompt Template</a></li><li class="toc-l2"><a href="#t7">Template 7 — Animation Prompt Template</a></li><li class="toc-l2"><a href="#t8">Template 8 — Camera Movement Prompt Template</a></li><li class="toc-l2"><a href="#t9">Template 9 — Sound Design Prompt Template</a></li><li class="toc-l2"><a href="#t10">Template 10 — Voiceover Prompt Template</a></li><li class="toc-l2"><a href="#t11">Template 11 — Thumbnail Prompt Template</a></li><li class="toc-l2"><a href="#t12">Template 12 — SEO Prompt Template</a></li></ul>
+</section>
+<div class="page-sheet"><section class="story" id="intro"><h3 class="story-title">Part 14 — Reusable Prompt Library (Overview)</h3><p class="kv">ये 12 templates सभी 100 कहानियों पर काम करते हैं। हर template के 7 हिस्से: Purpose, Inputs, Outputs, Complete Copy-Paste Prompt, Example Usage, Advanced Version, Professional Version। [PLACEHOLDERS] को अपनी कहानी के हिसाब से भरें। Brand tone: Alley Verse = ठंडा/cinematic/English, वो गली = देसी/हिंदी/folklore।</p></section>
+<section class="story" id="t1"><h3 class="story-title">Template 1 — Story Generation Prompt</h3>
+<div class="pkg-part">Purpose</div>
+<p class="kv">एक premise/idea से पूरा, मौलिक हॉरर स्टोरी-कॉन्सेप्ट बनाना।</p>
+<div class="pkg-part">Inputs</div>
+<ul><li>Brand व audience</li><li>Subgenre</li><li>एक-लाइन idea/premise</li><li>Tone</li></ul>
+<div class="pkg-part">Outputs</div>
+<ul><li>Title</li><li>15-sec Hook</li><li>Premise</li><li>Fear mechanism</li><li>Unsettling ending</li></ul>
+<div class="pkg-part">Complete Copy-Paste Prompt</div>
+<div class="prompt"><div class="prompt-label">Base Prompt</div><code>You are a master psychological horror writer for "[BRAND]" (audience: [AUDIENCE]). From this seed: "[IDEA]", generate a Tier-1 horror concept. Subgenre: [SUBGENRE]. Tone: [TONE]. Fear must be psychological, not cheap jump-scares. Deliver: Title, 15-second Hook, full Premise, Fear Mechanism, and an unsettling Ending. Make it culturally authentic and original.</code></div>
+<div class="pkg-part">Example Usage</div>
+<p class="kv">Seed: 'एक लिफ्ट जो रात को एक न-बनी मंज़िल पर रुकती है।' → Title/Hook/Premise/Fear/Ending।</p>
+<div class="pkg-part">Advanced Version</div>
+<div class="prompt"><div class="prompt-label">Advanced (add to base)</div><code>...उपरोक्त के साथ: 3 vary किए हुए concepts दो, हर एक का retention-hook अलग; और बताओ कौन-सा thumbnail-friendly है और क्यों।</code></div>
+<div class="pkg-part">Professional Version</div>
+<div class="prompt"><div class="prompt-label">Professional (add to base)</div><code>...Professional: 5 concepts एक table में (Title | Hook | Fear | Why it retains | Thumbnail idea), फिर सबसे viral-योग्य एक को pick करके justify करो (CTR + watch-time logic)।</code></div>
+</section>
+<section class="story" id="t2"><h3 class="story-title">Template 2 — Script Writing Prompt</h3>
+<div class="pkg-part">Purpose</div>
+<p class="kv">concept को पूरी narration स्क्रिप्ट (3000+ शब्द) में बदलना।</p>
+<div class="pkg-part">Inputs</div>
+<ul><li>Title</li><li>Hook</li><li>Premise</li><li>Fear</li><li>Ending</li><li>भाषा/टोन</li></ul>
+<div class="pkg-part">Outputs</div>
+<ul><li>Hook (0-15s)</li><li>7-beat body</li><li>narration-ready script</li><li>scene markers</li></ul>
+<div class="pkg-part">Complete Copy-Paste Prompt</div>
+<div class="prompt"><div class="prompt-label">Base Prompt</div><code>Write a complete 3000+ word horror narration script for "[TITLE]" ([BRAND]). Use the 7-beat गली फॉर्मूला: normal life -&gt; hook -&gt; first sign -&gt; rising dread -&gt; reveal -&gt; climax -&gt; unsettling end. Hook: [HOOK]. Premise: [PREMISE]. Fear: [FEAR]. Ending: [ENDING]. Language/tone: [LANG]. Slow burn, use silence and sensory detail, write for the EAR.</code></div>
+<div class="pkg-part">Example Usage</div>
+<p class="kv">Title 'गली नंबर सात' के सभी फ़ील्ड भरकर → पूरी 3000-शब्द हिंदी स्क्रिप्ट।</p>
+<div class="pkg-part">Advanced Version</div>
+<div class="prompt"><div class="prompt-label">Advanced (add to base)</div><code>...Advanced: हर 40-60 सेकंड पर एक open-loop/retention-hook जोड़ो; [n] timestamps के साथ scene markers दो; अंत में 3 Shorts-clip suggestions।</code></div>
+<div class="pkg-part">Professional Version</div>
+<div class="prompt"><div class="prompt-label">Professional (add to base)</div><code>...Professional: स्क्रिप्ट + पढ़ने का अनुमानित runtime + WPM pacing notes + जहाँ pause/silence हो वहाँ [PAUSE] markers + voiceover director notes।</code></div>
+</section>
+<section class="story" id="t3"><h3 class="story-title">Template 3 — Character Creation Prompt</h3>
+<div class="pkg-part">Purpose</div>
+<p class="kv">कहानी का relatable मुख्य किरदार + entity गढ़ना।</p>
+<div class="pkg-part">Inputs</div>
+<ul><li>Title</li><li>Brand</li><li>base appearance</li><li>fear mechanism</li></ul>
+<div class="pkg-part">Outputs</div>
+<ul><li>Name/age/occupation</li><li>flaw</li><li>emotional arc</li><li>entity (suggestion only)</li></ul>
+<div class="pkg-part">Complete Copy-Paste Prompt</div>
+<div class="prompt"><div class="prompt-label">Base Prompt</div><code>Create the full character profile for the protagonist of "[TITLE]" ([BRAND]). Base look: [LOOK]. Provide name, age, occupation, a relatable trap/flaw, why the audience identifies, and the arc normal-&gt;unsettled-&gt;afraid-&gt;changed. Define the entity rooted in [FEAR] by suggestion only. Realistic, not a stereotype.</code></div>
+<div class="pkg-part">Example Usage</div>
+<p class="kv">'आख़िरी बस अड्डा' के लिए किरदार 'रोहित' का full profile + entity।</p>
+<div class="pkg-part">Advanced Version</div>
+<div class="prompt"><div class="prompt-label">Advanced (add to base)</div><code>...Advanced: 2 supporting characters + उनके motives; किरदार-consistency sheet (face/wardrobe/palette) ताकि AI images में identical रहे।</code></div>
+<div class="pkg-part">Professional Version</div>
+<div class="prompt"><div class="prompt-label">Professional (add to base)</div><code>...Professional: किरदार का psychological profile (fear response, decision logic), एक 'AI character reference prompt' (fixed-seed लायक), और continuity rules पूरे episode के लिए।</code></div>
+</section>
+<section class="story" id="t4"><h3 class="story-title">Template 4 — Scene Breakdown Prompt</h3>
+<div class="pkg-part">Purpose</div>
+<p class="kv">स्क्रिप्ट को shot-by-shot प्रोडक्शन सूची में तोड़ना।</p>
+<div class="pkg-part">Inputs</div>
+<ul><li>script/outline</li><li>target runtime</li></ul>
+<div class="pkg-part">Outputs</div>
+<ul><li>scene list</li><li>location/time</li><li>mood</li><li>key visual</li><li>sound cue</li><li>camera move</li></ul>
+<div class="pkg-part">Complete Copy-Paste Prompt</div>
+<div class="prompt"><div class="prompt-label">Base Prompt</div><code>Break "[TITLE]" into a scene-by-scene shot list. For each scene: number + duration, location &amp; time, what happens (1-2 lines), mood, key visual, sound design note, camera move. Total ~[RUNTIME]. Mark the HOOK and CLIMAX scenes.</code></div>
+<div class="pkg-part">Example Usage</div>
+<p class="kv">8-15 मिनट की कहानी → 8-12 scenes की shot list।</p>
+<div class="pkg-part">Advanced Version</div>
+<div class="prompt"><div class="prompt-label">Advanced (add to base)</div><code>...Advanced: हर scene के लिए AI-image prompt seed + transition type (cut/fade) जोड़ो।</code></div>
+<div class="pkg-part">Professional Version</div>
+<div class="prompt"><div class="prompt-label">Professional (add to base)</div><code>...Professional: पूरी shot list एक table में (Scene | Dur | Location | Action | Mood | Visual | Sound | Camera | Image-prompt) + total runtime calc + asset count।</code></div>
+</section>
+<section class="story" id="t5"><h3 class="story-title">Template 5 — AI Image Prompt Template</h3>
+<div class="pkg-part">Purpose</div>
+<p class="kv">हर scene/किरदार/entity के लिए consistent image prompts।</p>
+<div class="pkg-part">Inputs</div>
+<ul><li>story fields</li><li>brand visual style</li><li>palette</li></ul>
+<div class="pkg-part">Outputs</div>
+<ul><li>character/entity/environment/establishing/key-scene/thumbnail prompts</li></ul>
+<div class="pkg-part">Complete Copy-Paste Prompt</div>
+<div class="prompt"><div class="prompt-label">Base Prompt</div><code>[shot], [location], [time], horror cinematography, [BRAND STYLE], palette: [PALETTE], volumetric fog, deep shadows, single light source, photorealistic, no text --ar 16:9 --style raw</code></div>
+<div class="pkg-part">Example Usage</div>
+<p class="kv">वो गली environment: 'empty Indian village alley at night, flickering yellow bulb, peepal tree, fog, no people, cinematic horror --ar 16:9 --style raw'</p>
+<div class="pkg-part">Advanced Version</div>
+<div class="prompt"><div class="prompt-label">Advanced (add to base)</div><code>...Advanced: हर prompt में negative prompt (--no text, watermark, extra fingers) + fixed --seed consistency के लिए।</code></div>
+<div class="pkg-part">Professional Version</div>
+<div class="prompt"><div class="prompt-label">Professional (add to base)</div><code>...Professional: एक prompt-set (7 prompts) + style-guide block (camera, lens, lighting, palette, grain) जो हर image पर paste हो ताकि पूरा episode एक जैसा दिखे।</code></div>
+</section>
+<section class="story" id="t6"><h3 class="story-title">Template 6 — AI Video Generation Prompt Template</h3>
+<div class="pkg-part">Purpose</div>
+<p class="kv">image/scene को eerie video clip में बदलना।</p>
+<div class="pkg-part">Inputs</div>
+<ul><li>scene description</li><li>motion type</li><li>brand style</li></ul>
+<div class="pkg-part">Outputs</div>
+<ul><li>5-8s clip prompts</li><li>motion + camera + lighting notes</li></ul>
+<div class="pkg-part">Complete Copy-Paste Prompt</div>
+<div class="prompt"><div class="prompt-label">Base Prompt</div><code>[scene], subtle slow motion, [drifting fog / flickering light / slow approaching shadow], minimal movement, eerie stillness, [BRAND STYLE], locked-off or slow push-in, 5-8s, photorealistic.</code></div>
+<div class="pkg-part">Example Usage</div>
+<p class="kv">'a lonely alley, slow fog drift, bulb flicker, a shadow lengthens, 6s, cinematic horror'</p>
+<div class="pkg-part">Advanced Version</div>
+<div class="prompt"><div class="prompt-label">Advanced (add to base)</div><code>...Advanced: हर beat के लिए अलग clip prompt + start/end frame guidance + motion intensity (low)।</code></div>
+<div class="pkg-part">Professional Version</div>
+<div class="prompt"><div class="prompt-label">Professional (add to base)</div><code>...Professional: पूरी 5-beat video sequence + per-clip duration + stitch order + transition notes + 'no fast motion' rule reminder।</code></div>
+</section>
+<section class="story" id="t7"><h3 class="story-title">Template 7 — Animation Prompt Template</h3>
+<div class="pkg-part">Purpose</div>
+<p class="kv">still images से 2.5D parallax animation बनाना।</p>
+<div class="pkg-part">Inputs</div>
+<ul><li>scene layers</li><li>motion style</li></ul>
+<div class="pkg-part">Outputs</div>
+<ul><li>FG/MG/BG/Depth/Fog/Shadow layer specs</li><li>parallax + zoom instructions</li></ul>
+<div class="pkg-part">Complete Copy-Paste Prompt</div>
+<div class="prompt"><div class="prompt-label">Base Prompt</div><code>Animate "[SCENE]" in 2.5D parallax: Foreground [..], Midground [character], Background [..], Depth haze, Fog layer (30-50% opacity, slow drift), Shadow layer (entity, slow approach). Slow zoom 1.0-&gt;1.08 over 8-12s, slow push-in, atmospheric motion only. Parallax: FG fast, MG mid, BG slow.</code></div>
+<div class="pkg-part">Example Usage</div>
+<p class="kv">गाँव की गली का दृश्य → 6 layers + parallax।</p>
+<div class="pkg-part">Advanced Version</div>
+<div class="prompt"><div class="prompt-label">Advanced (add to base)</div><code>...Advanced: हर layer का displacement map note + fog opacity keyframes + shadow timing।</code></div>
+<div class="pkg-part">Professional Version</div>
+<div class="prompt"><div class="prompt-label">Professional (add to base)</div><code>...Professional: पूरा layer-stack spec (z-depth values) + camera path + render settings + consistency rule (entity हमेशा अधूरा)।</code></div>
+</section>
+<section class="story" id="t8"><h3 class="story-title">Template 8 — Camera Movement Prompt Template</h3>
+<div class="pkg-part">Purpose</div>
+<p class="kv">हर beat के लिए dread-बढ़ाने वाला camera move चुनना।</p>
+<div class="pkg-part">Inputs</div>
+<ul><li>scene beats</li></ul>
+<div class="pkg-part">Outputs</div>
+<ul><li>per-beat camera instruction</li></ul>
+<div class="pkg-part">Complete Copy-Paste Prompt</div>
+<div class="prompt"><div class="prompt-label">Base Prompt</div><code>For each beat choose a camera move: Hook=slow push-in on a detail; Rising dread=locked-off static; Reveal=slow tilt/pan to expose; Climax=slight handheld; End=slow pull-back to wide, fade to black. SLOW only — horror lives in patience.</code></div>
+<div class="pkg-part">Example Usage</div>
+<p class="kv">5-beat कहानी → हर beat का camera move।</p>
+<div class="pkg-part">Advanced Version</div>
+<div class="prompt"><div class="prompt-label">Advanced (add to base)</div><code>...Advanced: lens (focal length) + DOF + frame composition (rule of thirds / negative space) जोड़ो।</code></div>
+<div class="pkg-part">Professional Version</div>
+<div class="prompt"><div class="prompt-label">Professional (add to base)</div><code>...Professional: पूरी camera sheet (Beat | Move | Lens | DOF | Composition | Duration) + signature brand shot definition।</code></div>
+</section>
+<section class="story" id="t9"><h3 class="story-title">Template 9 — Sound Design Prompt Template</h3>
+<div class="pkg-part">Purpose</div>
+<p class="kv">हर scene के लिए layered horror audio design।</p>
+<div class="pkg-part">Inputs</div>
+<ul><li>story fields</li><li>brand (desi/intl)</li></ul>
+<div class="pkg-part">Outputs</div>
+<ul><li>ambient/environmental/tension/horror/climax/ending layers</li></ul>
+<div class="pkg-part">Complete Copy-Paste Prompt</div>
+<div class="prompt"><div class="prompt-label">Base Prompt</div><code>Design audio for "[TITLE]": ambient [BASE], environmental [DETAILS], tension (rising low drone/sub-bass), signature scare = SILENCE then one sharp stinger, cultural cue [..], ending = long low note. Narration clear &amp; upfront; music low. Silence before the scare is the loudest tool.</code></div>
+<div class="pkg-part">Example Usage</div>
+<p class="kv">वो गली → रात के कीड़े + दूर कुत्ता + मंदिर की घंटी + silence→stinger।</p>
+<div class="pkg-part">Advanced Version</div>
+<div class="prompt"><div class="prompt-label">Advanced (add to base)</div><code>...Advanced: हर layer का volume envelope (dB) + scare timing (sec) + frequency notes।</code></div>
+<div class="pkg-part">Professional Version</div>
+<div class="prompt"><div class="prompt-label">Professional (add to base)</div><code>...Professional: पूरा audio cue-sheet (Time | Layer | Source | Level | Note) + mix bus settings + LUFS target for YouTube।</code></div>
+</section>
+<section class="story" id="t10"><h3 class="story-title">Template 10 — Voiceover Prompt Template</h3>
+<div class="pkg-part">Purpose</div>
+<p class="kv">narration की आवाज़, टोन और delivery तय करना।</p>
+<div class="pkg-part">Inputs</div>
+<ul><li>language</li><li>brand</li><li>key emotional beats</li></ul>
+<div class="pkg-part">Outputs</div>
+<ul><li>style/tone/speed/pause/emotional delivery notes</li></ul>
+<div class="pkg-part">Complete Copy-Paste Prompt</div>
+<div class="prompt"><div class="prompt-label">Base Prompt</div><code>Narrate "[TITLE]" in a deep, calm, slow [LANG] voice. Pause after every unsettling line; lower volume + slower pace at the scariest moments; never rush; let silence breathe. Tone: [TONE]. (ElevenLabs: Stability ~50, Similarity ~75, slow pace.)</code></div>
+<div class="pkg-part">Example Usage</div>
+<p class="kv">वो गली → गहरी हिंदी आवाज़, हर डरावने वाक्य के बाद pause।</p>
+<div class="pkg-part">Advanced Version</div>
+<div class="prompt"><div class="prompt-label">Advanced (add to base)</div><code>...Advanced: script पर [PAUSE]/[WHISPER]/[SLOW] markers + per-section emotion map।</code></div>
+<div class="pkg-part">Professional Version</div>
+<div class="prompt"><div class="prompt-label">Professional (add to base)</div><code>...Professional: full VO direction sheet (Section | Emotion | WPM | Volume | Pause) + ElevenLabs settings + retake notes for climax line।</code></div>
+</section>
+<section class="story" id="t11"><h3 class="story-title">Template 11 — Thumbnail Prompt Template</h3>
+<div class="pkg-part">Purpose</div>
+<p class="kv">high-CTR हॉरर thumbnail design + prompt।</p>
+<div class="pkg-part">Inputs</div>
+<ul><li>title</li><li>brand style</li><li>focal subject</li></ul>
+<div class="pkg-part">Outputs</div>
+<ul><li>thumbnail concept + image prompt + text + CTR notes</li></ul>
+<div class="pkg-part">Complete Copy-Paste Prompt</div>
+<div class="prompt"><div class="prompt-label">Base Prompt</div><code>Thumbnail for "[TITLE]" ([BRAND]): one focal point (face half in shadow / eye / silhouette), 80% darkness + one light, [BRAND STYLE], curiosity gap (raise a question), no gore, text 2-4 words, must read at small mobile size --ar 16:9 --style raw</code></div>
+<div class="pkg-part">Example Usage</div>
+<p class="kv">वो गली #2 → पीपल की परछाई + 'मत जाना' text।</p>
+<div class="pkg-part">Advanced Version</div>
+<div class="prompt"><div class="prompt-label">Advanced (add to base)</div><code>...Advanced: 2 A/B concepts + अलग text hooks + contrast/saturation notes।</code></div>
+<div class="pkg-part">Professional Version</div>
+<div class="prompt"><div class="prompt-label">Professional (add to base)</div><code>...Professional: thumbnail system (focal + text + color + layout grid) + 3 variants + CTR hypothesis for each + test plan।</code></div>
+</section>
+<section class="story" id="t12"><h3 class="story-title">Template 12 — SEO Prompt Template</h3>
+<div class="pkg-part">Purpose</div>
+<p class="kv">title/description/tags/hashtags + upload plan।</p>
+<div class="pkg-part">Inputs</div>
+<ul><li>title</li><li>language</li><li>keywords</li></ul>
+<div class="pkg-part">Outputs</div>
+<ul><li>3 titles</li><li>keyword-rich description</li><li>timestamps</li><li>tags</li><li>hashtags</li><li>pinned comment</li></ul>
+<div class="pkg-part">Complete Copy-Paste Prompt</div>
+<div class="prompt"><div class="prompt-label">Base Prompt</div><code>Generate YouTube SEO for "[TITLE]" ([BRAND], lang [LANG]): 3 title options (hook+keyword, &lt;70 chars), description (first 3 lines keyword-rich + 2-line teaser), 5 timestamps, 10 tags, 6 hashtags, 1 pinned comment (a question). Primary keyword: [KW]. Secondary: [KW2, KW3].</code></div>
+<div class="pkg-part">Example Usage</div>
+<p class="kv">वो गली कहानी → 3 titles + description + tags।</p>
+<div class="pkg-part">Advanced Version</div>
+<div class="prompt"><div class="prompt-label">Advanced (add to base)</div><code>...Advanced: title CTR-ranking (कौन सबसे click-worthy, क्यों) + keyword search-intent notes।</code></div>
+<div class="pkg-part">Professional Version</div>
+<div class="prompt"><div class="prompt-label">Professional (add to base)</div><code>...Professional: पूरा SEO sheet + upload time (timezone) + playlist placement + end-screen/cards plan + first-hour engagement checklist।</code></div>
+</section></div>
+</body></html>

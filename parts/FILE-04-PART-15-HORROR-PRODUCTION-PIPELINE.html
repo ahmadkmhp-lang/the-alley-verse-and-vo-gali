@@ -1,0 +1,343 @@
+<!DOCTYPE html><html lang="hi"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>PART 15 — Horror Production Pipeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Serif+Devanagari:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16151a;--muted:#5b5660;--line:#ddd7e0;--accent:#10484a;--accent2:#b8862f;}
+@page{size:A4;margin:18mm 16mm 20mm 16mm;@bottom-center{content:counter(page);font-family:"Noto Serif",serif;font-size:9pt;color:#999;}}
+*{box-sizing:border-box;}html,body{margin:0;padding:0;background:#525659;}
+body{font-family:"Noto Serif Devanagari","Noto Serif",Georgia,serif;color:var(--ink);line-height:1.55;font-size:10.8pt;}
+.page-sheet{background:#fff;width:210mm;min-height:297mm;margin:10mm auto;padding:22mm 18mm;box-shadow:0 4px 22px rgba(0,0,0,.4);}
+@media print{html,body{background:#fff;}.page-sheet{width:auto;min-height:auto;margin:0;padding:0;box-shadow:none;}a{color:var(--ink);text-decoration:none;}.no-print{display:none!important;}}
+h1,h2,h3{font-family:"Noto Sans Devanagari","Cinzel",serif;line-height:1.25;}
+.story-title{font-size:13pt;color:#fff;background:linear-gradient(90deg,var(--accent),#222);padding:8px 12px;border-radius:6px;margin:0 0 .6em;break-after:avoid;}
+.pkg-part{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:11pt;color:var(--accent);margin:1em 0 .35em;padding-bottom:3px;border-bottom:2px solid var(--accent2);break-after:avoid;}
+p{margin:.3em 0;}.kv{margin:.22em 0;text-align:justify;}.kvk{font-weight:700;color:#2a2730;}
+.note-line{font-size:8.8pt;color:var(--muted);font-style:italic;margin:.2em 0 .5em;}
+ul,ol{margin:.25em 0 .5em;padding-left:1.3em;}li{margin:.12em 0;}
+code{font-family:"JetBrains Mono",monospace;font-size:8.8pt;}
+.prompt{background:#f6f3f8;border:1px solid #e3dceb;border-left:3px solid var(--accent2);border-radius:5px;padding:7px 10px;margin:.4em 0;break-inside:avoid;}
+.prompt-label{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:8.6pt;color:var(--accent);margin-bottom:3px;}
+.prompt code{display:block;color:#241f2b;line-height:1.45;white-space:pre-wrap;word-break:break-word;}
+.story{break-before:page;padding-top:2mm;}
+.cover{background:radial-gradient(120% 80% at 50% 16%,#2a0d14 0%,#140a10 45%,#060406 100%);color:#f3eee9;min-height:297mm;width:210mm;margin:10mm auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;box-shadow:0 4px 22px rgba(0,0,0,.5);}
+.cover .lamp{font-size:42pt;filter:drop-shadow(0 0 18px rgba(184,134,47,.7));margin-bottom:6mm;}
+.cover .filecode{font-family:"Cinzel",serif;letter-spacing:6px;color:var(--accent2);font-size:13pt;}
+.cover .brand{font-family:"Cinzel",serif;font-size:22pt;letter-spacing:1px;margin:6mm 8mm 0;}
+.cover .devnag{font-family:"Noto Serif Devanagari",serif;font-weight:700;}
+.cover .dept{font-family:"Noto Sans Devanagari",sans-serif;font-size:26pt;color:#e6d8c0;margin:8mm 8mm 0;}
+.cover .sub{margin-top:3mm;color:#b9aa98;font-size:12pt;}
+.cover .rule{width:55mm;border:0;border-top:1px solid #5a4636;margin:9mm auto;}
+.cover .foot{position:absolute;bottom:18mm;font-size:9pt;color:#8a7d72;letter-spacing:1px;}
+@media print{.cover{width:auto;min-height:100vh;margin:0;break-after:page;}}
+.copyright{font-size:10pt;color:var(--muted);}.copyright h2{color:var(--ink);}
+.vol-divider{break-before:page;break-after:page;min-height:230mm;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(160deg,#fbf7f3,#f3ece4);}
+.vd-kicker{font-family:"Cinzel",serif;letter-spacing:7px;color:var(--accent2);font-size:13pt;}
+.vd-title{font-family:"Noto Sans Devanagari",sans-serif;font-size:28pt;color:var(--accent);margin:6mm 0 3mm;}
+.vd-sub{font-family:"Noto Sans Devanagari",sans-serif;font-size:12pt;color:#5b5660;}
+.vd-mark{margin-top:8mm;font-size:24pt;}
+h1.toch{font-size:18pt;border-bottom:3px solid var(--accent);padding-bottom:.2em;}
+.toc{list-style:none;padding:0;margin:0;column-count:2;column-gap:10mm;font-size:9pt;}
+.toc li{margin:.05em 0;break-inside:avoid;}.toc a{text-decoration:none;color:#3a3640;}
+.toc-l1{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:10.5pt;color:var(--accent);margin-top:.5em!important;column-span:all;border-bottom:1px solid var(--line);padding-bottom:2px;}
+.banner-note{background:#fff7e6;border:1px solid #e8cf94;border-radius:6px;padding:10px 14px;margin:1em 0;font-size:9.5pt;color:#6b5414;}
+.intro p{text-align:justify;}
+</style></head><body>
+<section class="cover">
+<div class="lamp">🏮</div>
+<div class="filecode">PART 15</div>
+<div class="brand">THE ALLEY VERSE <span style="color:var(--accent2)">&amp;</span> <span class="devnag">वो गली</span></div>
+<hr class="rule"/>
+<div class="dept">Horror Production Pipeline</div>
+<div class="sub">17 Systems × Workflow · SOP · Checklist · Tools · QC · Mistakes · Optimization</div>
+<div class="foot">ULTIMATE HORROR CONTENT FACTORY · DOCUMENT 4/4</div>
+</section>
+<section class="page-sheet copyright">
+<h2>Copyright &amp; Notice</h2>
+<p><strong>THE ALLEY VERSE &amp; वो गली — Ultimate Horror Content Factory</strong></p>
+<p>Horror Production Pipeline · संस्करण 1.0 · 2026</p><hr/>
+<p>© 2026 THE ALLEY VERSE &amp; वो गली. सर्वाधिकार सुरक्षित (All Rights Reserved)।</p>
+<p>यह फाइल इस प्रोडक्शन सिस्टम के एक विभाग (department) का दस्तावेज़ है। सभी 100 कहानियाँ मौलिक हैं।</p>
+<p class="copyright">नोट: AI image/video prompts English में हैं (मॉडल की ज़रूरत); बाकी सामग्री हिंदी में। PDF बनाने के लिए इस HTML को Chrome में खोलकर Print → Save as PDF (A4) करें।</p>
+</section>
+<section class="page-sheet">
+<h1 class="toch">विषय-सूची · Table of Contents</h1>
+<p class="banner-note no-print">💡 TOC clickable है — किसी भी आइटम पर क्लिक करके सीधे वहाँ जाएँ।</p>
+<ul class="toc"><li class="toc-l1"><a href="#intro">Overview</a></li><li class="toc-l2"><a href="#s1">01 · Research System</a></li><li class="toc-l2"><a href="#s2">02 · Story Development System</a></li><li class="toc-l2"><a href="#s3">03 · Character System</a></li><li class="toc-l2"><a href="#s4">04 · Scene Breakdown System</a></li><li class="toc-l2"><a href="#s5">05 · Image Generation System</a></li><li class="toc-l2"><a href="#s6">06 · Video Generation System</a></li><li class="toc-l2"><a href="#s7">07 · 2.5D Animation System</a></li><li class="toc-l2"><a href="#s8">08 · Camera System</a></li><li class="toc-l2"><a href="#s9">09 · Voiceover System</a></li><li class="toc-l2"><a href="#s10">10 · Sound Design System</a></li><li class="toc-l2"><a href="#s11">11 · Editing System</a></li><li class="toc-l2"><a href="#s12">12 · Thumbnail System</a></li><li class="toc-l2"><a href="#s13">13 · SEO System</a></li><li class="toc-l2"><a href="#s14">14 · Publishing System</a></li><li class="toc-l2"><a href="#s15">15 · Analytics System</a></li><li class="toc-l2"><a href="#s16">16 · Growth System</a></li><li class="toc-l2"><a href="#s17">17 · Monetization System</a></li></ul>
+</section>
+<div class="page-sheet"><section class="story" id="intro"><h3 class="story-title">Part 15 — Horror Production Pipeline (Overview)</h3><p class="kv">यह पूरे स्टूडियो का operating system है — research से monetization तक 17 systems। हर system के 7 हिस्से: Workflow, SOP, Checklist, Tools, Quality Control, Common Mistakes, Optimization Strategy।</p></section>
+<section class="story" id="s1"><h3 class="story-title">01 · Research System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>स्रोत scan: r/nosleep, urban legends, गाँव की अफ़वाहें, बुज़ुर्गों की बातें</li><li>AI से 10 idea → सबसे डरावना shortlist</li><li>100-stories master से dedup check</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. weekly idea-dump (20 ideas)</li><li>2. shortlist 4</li><li>3. audience+pillar tag</li><li>4. hook test (1 line)</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>idea source noted</li><li>duplicate check done</li><li>pillar assigned</li><li>hook drafted</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>Reddit</li><li>Google Trends</li><li>AnswerThePublic</li><li>Notion/Sheet</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>हर idea का एक-लाइन hook हो</li><li>pillar balance (urban/rural/folklore/psych)</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>सिर्फ़ trending नकल</li><li>बिना hook के idea</li><li>एक ही pillar पर ज़्यादा झुकाव</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>evergreen + trend mix</li><li>best-performing pillar को double करो</li></ul>
+</section>
+<section class="story" id="s2"><h3 class="story-title">02 · Story Development System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>concept → 7-beat outline → full script</li><li>AI draft + human emotion pass</li><li>ज़ोर से read-through</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. outline (गली फॉर्मूला)</li><li>2. draft</li><li>3. emotion/desi pass</li><li>4. hook tighten</li><li>5. read aloud</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>hook 15s tight</li><li>7 beats present</li><li>unsettling end</li><li>read-aloud done</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>Claude/ChatGPT</li><li>Google Docs</li><li>Hemingway (clarity)</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>pacing slow-burn</li><li>fear central, no cheap scares</li><li>ear-friendly language</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>info-dump intro</li><li>rushed ending</li><li>किताबी भाषा (वो गली में)</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>हर 40-60s open-loop</li><li>best scripts के pattern दोहराओ</li></ul>
+</section>
+<section class="story" id="s3"><h3 class="story-title">03 · Character System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>main + supporting + entity define</li><li>consistency sheet बनाओ</li><li>fixed reference image</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. profile</li><li>2. look-lock</li><li>3. ref image (seed)</li><li>4. arc map</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>name/look fixed</li><li>entity suggestion-only</li><li>arc defined</li><li>ref seed saved</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>Character bible (FILE-02)</li><li>Midjourney --seed</li><li>Notion</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>हर shot में identical look</li><li>entity कभी पूरा reveal नहीं</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>हर वीडियो में बदलता चेहरा</li><li>entity ज़्यादा दिखाना</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>recurring narrator/entity से brand identity</li><li>character ref library बनाओ</li></ul>
+</section>
+<section class="story" id="s4"><h3 class="story-title">04 · Scene Breakdown System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>script → shot list</li><li>हर scene: visual+sound+camera</li><li>hook/climax mark</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. split scenes</li><li>2. assign visual/sound/camera</li><li>3. duration calc</li><li>4. asset count</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>scene durations sum = runtime</li><li>hook+climax marked</li><li>asset list ready</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>Sheets/Notion table</li><li>Storyboard (optional)</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>हर scene में एक clear visual</li><li>transitions slow</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>बहुत लंबे scenes</li><li>fast cuts</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>batch shot-list 2-3 episodes एक साथ</li><li>reusable location templates</li></ul>
+</section>
+<section class="story" id="s5"><h3 class="story-title">05 · Image Generation System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>ref image पहले</li><li>7-prompt set चलाओ</li><li>consistency QC</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. char ref</li><li>2. environments</li><li>3. key scenes</li><li>4. thumbnail</li><li>5. upscale</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>face/palette consistent</li><li>entity hidden</li><li>16:9</li><li>upscaled</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>Midjourney</li><li>Flux</li><li>Leonardo</li><li>Ideogram</li><li>Recraft</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>palette + lighting consistent</li><li>no text/watermark</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>हर image अलग style</li><li>entity साफ़ दिखाना</li><li>gore ज़्यादा</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>style-guide block हर prompt पर</li><li>fixed seed + batch generate</li></ul>
+</section>
+<section class="story" id="s6"><h3 class="story-title">06 · Video Generation System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>images → 5-beat clips</li><li>low motion</li><li>stitch order</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. beat clips</li><li>2. review motion</li><li>3. retake fast ones</li><li>4. assemble</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>5 beats covered</li><li>no fast motion</li><li>5-8s each</li><li>16:9</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>Veo</li><li>Kling</li><li>Hailuo</li><li>Runway</li><li>Pika</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>eerie stillness &gt; action</li><li>camera slow</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>तेज़ animation</li><li>ज़्यादा movement</li><li>inconsistent lighting</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>best model per shot mix</li><li>image-to-video for consistency</li></ul>
+</section>
+<section class="story" id="s7"><h3 class="story-title">07 · 2.5D Animation System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>6-layer parallax</li><li>fog/shadow layers</li><li>slow zoom/push</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. layer split</li><li>2. depth/fog/shadow</li><li>3. parallax keyframes</li><li>4. zoom</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>6 layers</li><li>fog 30-50%</li><li>shadow slow-approach</li><li>parallax FG&gt;MG&gt;BG</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>After Effects</li><li>CapCut</li><li>DaVinci</li><li>Photoshop (layers)</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>depth believable</li><li>motion subtle</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>flat parallax</li><li>fast/jerky motion</li><li>fog बहुत ज़्यादा</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>layer templates reuse</li><li>displacement maps for depth</li></ul>
+</section>
+<section class="story" id="s8"><h3 class="story-title">08 · Camera System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>per-beat move चुनो</li><li>slow only</li><li>signature shot</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. assign moves</li><li>2. lens/DOF</li><li>3. composition</li><li>4. duration</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>each beat has move</li><li>all slow</li><li>signature shot present</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>AE camera</li><li>Runway camera ctrl</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>negative space use</li><li>rule of thirds</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>तेज़ pan/zoom</li><li>shaky everywhere</li><li>no establishing wide</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>consistent lens language</li><li>brand signature frame हर वीडियो में</li></ul>
+</section>
+<section class="story" id="s9"><h3 class="story-title">09 · Voiceover System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>deep slow narration</li><li>pause/whisper markers</li><li>climax retake</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. mark script</li><li>2. record/TTS</li><li>3. de-noise</li><li>4. climax retake</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>clear VO</li><li>pauses present</li><li>climax slow/low</li><li>noise-free</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>ElevenLabs</li><li>अपनी आवाज़</li><li>Audacity</li><li>Adobe Podcast</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>clarity + slow pace</li><li>silence honored</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>तेज़ बोलना</li><li>flat emotion</li><li>background noise</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>VO direction sheet</li><li>batch record एक session में</li></ul>
+</section>
+<section class="story" id="s10"><h3 class="story-title">10 · Sound Design System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>layered audio</li><li>silence→stinger</li><li>cultural cue</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. ambient bed</li><li>2. environmental</li><li>3. tension drone</li><li>4. scares</li><li>5. mix</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>layers balanced</li><li>silence before scare</li><li>LUFS ok</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>Epidemic Sound</li><li>YouTube Library</li><li>DaVinci Fairlight</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>VO upfront, music low</li><li>scare timing tight</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>loud music over VO</li><li>no silence</li><li>random scares</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>cue-sheet reuse</li><li>signature horror sound (brand)</li></ul>
+</section>
+<section class="story" id="s11"><h3 class="story-title">11 · Editing System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>VO+visual sync</li><li>grade+fog overlay</li><li>cut 3 shorts</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. assemble</li><li>2. sync VO</li><li>3. grade</li><li>4. SFX/music</li><li>5. shorts</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>sync clean</li><li>graded to palette</li><li>hook tight</li><li>3 shorts cut</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>DaVinci Resolve</li><li>CapCut</li><li>Premiere</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>pacing slow-burn</li><li>audio mix balanced</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>jump cuts तोड़ते mood</li><li>over-graded</li><li>लंबा intro</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>edit templates/presets</li><li>batch grade with LUTs</li></ul>
+</section>
+<section class="story" id="s12"><h3 class="story-title">12 · Thumbnail System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>focal + dark + text</li><li>2 A/B</li><li>mobile test</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. concept</li><li>2. generate/compose</li><li>3. text</li><li>4. A/B export</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>one focal</li><li>readable small</li><li>2 versions</li><li>curiosity gap</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>Photoshop</li><li>Canva</li><li>Photopea</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>contrast high</li><li>text 2-4 words</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>भीड़भाड़</li><li>छोटा text</li><li>spoiler thumbnail</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>A/B test + iterate</li><li>winning style दोहराओ</li></ul>
+</section>
+<section class="story" id="s13"><h3 class="story-title">13 · SEO System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>title+desc+tags</li><li>timestamps</li><li>pinned comment</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. keyword</li><li>2. 3 titles</li><li>3. desc</li><li>4. tags/hashtags</li><li>5. pin</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>keyword in first 3 lines</li><li>timestamps</li><li>tags+hashtags</li><li>pinned Q</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>TubeBuddy</li><li>vidIQ</li><li>Google Trends</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>title &lt;70 chars</li><li>primary kw upfront</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>clickbait जो deliver न करे</li><li>keyword stuffing</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>title CTR test</li><li>search-intent + trend mix</li></ul>
+</section>
+<section class="story" id="s14"><h3 class="story-title">14 · Publishing System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>right time schedule</li><li>end screen/cards</li><li>captions</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. upload+schedule</li><li>2. metadata</li><li>3. cards/captions</li><li>4. community post</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>thumbnail+title set</li><li>playlist</li><li>captions</li><li>scheduled time</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>YouTube Studio</li><li>buffer/community tab</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>consistent slot</li><li>first-hour engagement</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>upload miss करना</li><li>metadata अधूरा</li><li>गलत time</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>fixed weekly slot</li><li>cross-promote shorts</li></ul>
+</section>
+<section class="story" id="s15"><h3 class="story-title">15 · Analytics System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>CTR/retention/AVD देखो</li><li>drop-points fix</li><li>weekly/monthly review</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. 48h check</li><li>2. retention graph</li><li>3. compare best</li><li>4. monthly pillar review</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>CTR 5%+</li><li>AVD 50%+</li><li>first-30s 70%+</li><li>review logged</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>YouTube Analytics</li><li>Sheets tracker</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>data से सीखो, लड़ो मत</li><li>हर वीडियो थोड़ा बेहतर</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>vanity metrics पर अटकना</li><li>retention ignore करना</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>best content double down</li><li>drop-point pattern fix</li></ul>
+</section>
+<section class="story" id="s16"><h3 class="story-title">16 · Growth System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>consistency</li><li>shorts for reach</li><li>series/seasons</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. weekly cadence</li><li>2. shorts funnel</li><li>3. series</li><li>4. community</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>upload streak</li><li>shorts→long funnel</li><li>series live</li><li>community active</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>Shorts</li><li>Community tab</li><li>Instagram/WhatsApp</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>consistency &gt; perfection</li><li>binge-able series</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>burnout से gap</li><li>सिर्फ़ long या सिर्फ़ shorts</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>best format double</li><li>connected lore for loyalty</li></ul>
+</section>
+<section class="story" id="s17"><h3 class="story-title">17 · Monetization System</h3>
+<div class="pkg-part">Workflow</div>
+<ul><li>ads→membership→sponsor→merch</li><li>audio/OTT बाद में</li></ul>
+<div class="pkg-part">SOP (Step-by-Step)</div>
+<ul><li>1. 1000 subs+4000h</li><li>2. ads on</li><li>3. membership</li><li>4. sponsor/merch</li></ul>
+<div class="pkg-part">Checklist</div>
+<ul><li>monetization on</li><li>membership tier</li><li>sponsor kit</li><li>merch design</li></ul>
+<div class="pkg-part">Tools</div>
+<ul><li>YouTube monetization</li><li>Patreon</li><li>Spotify</li><li>merch print-on-demand</li></ul>
+<div class="pkg-part">Quality Control</div>
+<ul><li>audience-first, पैसा बाद में</li><li>Hindi: membership/merch focus</li></ul>
+<div class="pkg-part">Common Mistakes</div>
+<ul><li>जल्दी हद से ज़्यादा ads</li><li>audience से पहले monetize</li></ul>
+<div class="pkg-part">Optimization Strategy</div>
+<ul><li>multi-stream income</li><li>OTT/book/audio expansion</li></ul>
+</section></div>
+</body></html>
