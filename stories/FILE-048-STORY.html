@@ -1,0 +1,463 @@
+<!DOCTYPE html><html lang="hi"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>FILE-048-STORY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Serif+Devanagari:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16151a;--muted:#5b5660;--line:#ddd7e0;--accent:#5a1030;--accent2:#b8862f;}
+@page{size:A4;margin:18mm 16mm 20mm 16mm;@bottom-center{content:counter(page);font-family:"Noto Serif",serif;font-size:9pt;color:#999;}}
+*{box-sizing:border-box;}html,body{margin:0;padding:0;background:#525659;}
+body{font-family:"Noto Serif Devanagari","Noto Serif",Georgia,serif;color:var(--ink);line-height:1.55;font-size:10.8pt;}
+.page-sheet{background:#fff;width:210mm;min-height:297mm;margin:10mm auto;padding:22mm 18mm;box-shadow:0 4px 22px rgba(0,0,0,.4);}
+@media print{html,body{background:#fff;}.page-sheet{width:auto;min-height:auto;margin:0;padding:0;box-shadow:none;}a{color:var(--ink);text-decoration:none;}.no-print{display:none!important;}}
+h1,h2,h3{font-family:"Noto Sans Devanagari","Cinzel",serif;line-height:1.25;}
+.story-title{font-size:13pt;color:#fff;background:linear-gradient(90deg,var(--accent),#222);padding:8px 12px;border-radius:6px;margin:0 0 .6em;break-after:avoid;}
+.pkg-part{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:11pt;color:var(--accent);margin:1em 0 .35em;padding-bottom:3px;border-bottom:2px solid var(--accent2);break-after:avoid;}
+p{margin:.3em 0;}.kv{margin:.22em 0;text-align:justify;}.kvk{font-weight:700;color:#2a2730;}
+.note-line{font-size:8.8pt;color:var(--muted);font-style:italic;margin:.2em 0 .5em;}
+ul,ol{margin:.25em 0 .5em;padding-left:1.3em;}li{margin:.12em 0;}
+code{font-family:"JetBrains Mono",monospace;font-size:8.8pt;}
+.prompt{background:#f6f3f8;border:1px solid #e3dceb;border-left:3px solid var(--accent2);border-radius:5px;padding:7px 10px;margin:.4em 0;break-inside:avoid;}
+.prompt-label{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:8.6pt;color:var(--accent);margin-bottom:3px;}
+.prompt code{display:block;color:#241f2b;line-height:1.45;white-space:pre-wrap;word-break:break-word;}
+.story{break-before:page;padding-top:2mm;}
+.cover{background:radial-gradient(120% 80% at 50% 16%,#2a0d14 0%,#140a10 45%,#060406 100%);color:#f3eee9;min-height:297mm;width:210mm;margin:10mm auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;box-shadow:0 4px 22px rgba(0,0,0,.5);}
+.cover .lamp{font-size:42pt;filter:drop-shadow(0 0 18px rgba(184,134,47,.7));margin-bottom:6mm;}
+.cover .filecode{font-family:"Cinzel",serif;letter-spacing:6px;color:var(--accent2);font-size:13pt;}
+.cover .brand{font-family:"Cinzel",serif;font-size:22pt;letter-spacing:1px;margin:6mm 8mm 0;}
+.cover .devnag{font-family:"Noto Serif Devanagari",serif;font-weight:700;}
+.cover .dept{font-family:"Noto Sans Devanagari",sans-serif;font-size:26pt;color:#e6d8c0;margin:8mm 8mm 0;}
+.cover .sub{margin-top:3mm;color:#b9aa98;font-size:12pt;}
+.cover .rule{width:55mm;border:0;border-top:1px solid #5a4636;margin:9mm auto;}
+.cover .foot{position:absolute;bottom:18mm;font-size:9pt;color:#8a7d72;letter-spacing:1px;}
+@media print{.cover{width:auto;min-height:100vh;margin:0;break-after:page;}}
+.copyright{font-size:10pt;color:var(--muted);}.copyright h2{color:var(--ink);}
+.vol-divider{break-before:page;break-after:page;min-height:230mm;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(160deg,#fbf7f3,#f3ece4);}
+.vd-kicker{font-family:"Cinzel",serif;letter-spacing:7px;color:var(--accent2);font-size:13pt;}
+.vd-title{font-family:"Noto Sans Devanagari",sans-serif;font-size:28pt;color:var(--accent);margin:6mm 0 3mm;}
+.vd-sub{font-family:"Noto Sans Devanagari",sans-serif;font-size:12pt;color:#5b5660;}
+.vd-mark{margin-top:8mm;font-size:24pt;}
+h1.toch{font-size:18pt;border-bottom:3px solid var(--accent);padding-bottom:.2em;}
+.toc{list-style:none;padding:0;margin:0;column-count:2;column-gap:10mm;font-size:9pt;}
+.toc li{margin:.05em 0;break-inside:avoid;}.toc a{text-decoration:none;color:#3a3640;}
+.toc-l1{font-family:"Noto Sans Devanagari",sans-serif;font-weight:700;font-size:10.5pt;color:var(--accent);margin-top:.5em!important;column-span:all;border-bottom:1px solid var(--line);padding-bottom:2px;}
+.banner-note{background:#fff7e6;border:1px solid #e8cf94;border-radius:6px;padding:10px 14px;margin:1em 0;font-size:9.5pt;color:#6b5414;}
+.intro p{text-align:justify;}
+</style></head><body>
+<section class="cover">
+<div class="lamp">🏮</div>
+<div class="filecode">FILE 048</div>
+<div class="brand">THE ALLEY VERSE <span style="color:var(--accent2)">&amp;</span> <span class="devnag">वो गली</span></div>
+<hr class="rule"/>
+<div class="dept">#048 — आधी रात का दूधवाला</div>
+<div class="sub">वो गली · Indian Folklore Horror · Complete Production Package</div>
+<div class="foot">ULTIMATE HORROR CONTENT FACTORY · STORY 48/50</div>
+</section>
+<section class="page-sheet copyright">
+<h2>Copyright &amp; Notice</h2>
+<p><strong>THE ALLEY VERSE &amp; वो गली — Ultimate Horror Content Factory</strong></p>
+<p>#048 — आधी रात का दूधवाला · संस्करण 1.0 · 2026</p><hr/>
+<p>© 2026 THE ALLEY VERSE &amp; वो गली. सर्वाधिकार सुरक्षित (All Rights Reserved)।</p>
+<p>यह फाइल इस प्रोडक्शन सिस्टम के एक विभाग (department) का दस्तावेज़ है। सभी 100 कहानियाँ मौलिक हैं।</p>
+<p class="copyright">नोट: AI image/video prompts English में हैं (मॉडल की ज़रूरत); बाकी सामग्री हिंदी में। PDF बनाने के लिए इस HTML को Chrome में खोलकर Print → Save as PDF (A4) करें।</p>
+</section>
+<section class="page-sheet">
+<h1 class="toch">विषय-सूची · Table of Contents</h1>
+<p class="banner-note no-print">💡 TOC clickable है — किसी भी आइटम पर क्लिक करके सीधे वहाँ जाएँ।</p>
+<ul class="toc"><li class="toc-l1"><a href="#meta">1 · Story Metadata</a></li><li class="toc-l1"><a href="#script">2 · Full Script</a></li><li class="toc-l1"><a href="#scenes">3 · Scene-by-Scene Breakdown</a></li><li class="toc-l1"><a href="#img">4 · Image Generation Department (Leonardo · Flux · Midjourney · Recraft · Ideogram)</a></li><li class="toc-l1"><a href="#vid">5 · Video Generation Department (Veo 3 · Kling · Hailuo · Runway · Pika · Luma)</a></li><li class="toc-l1"><a href="#anim">6 · 2.5D Animation Department</a></li><li class="toc-l1"><a href="#vo">7 · Voiceover Department (Hindi + English)</a></li><li class="toc-l1"><a href="#snd">8 · Sound Design Department</a></li><li class="toc-l1"><a href="#thumb">9 · Thumbnail Department (10 Concepts + 10 Prompts)</a></li><li class="toc-l1"><a href="#seo">10 · SEO Department</a></li></ul>
+</section>
+<div class="page-sheet"><section class="story" id="meta"><h3 class="story-title">1 · Story Metadata</h3>
+<p class="kv"><span class="kvk">Story Title:</span> आधी रात का दूधवाला</p>
+<p class="kv"><span class="kvk">Brand:</span> वो गली</p>
+<p class="kv"><span class="kvk">Genre:</span> Horror</p>
+<p class="kv"><span class="kvk">Horror Type:</span> Indian Folklore Horror</p>
+<p class="kv"><span class="kvk">Target Audience:</span> भारतीय (हिंदी)</p>
+<p class="kv"><span class="kvk">Estimated Runtime:</span> 6-10 मिनट</p>
+<div class="pkg-part">Retention Hooks</div>
+<ul><li>0:00-0:15 — Cold-open hook: "गाँव में एक दूधवाला आधी रात आता था। उसका दूध जो पीता, वो सुबह बहुत कमज़ोर उठता।"</li><li>बीच में एक अनसुलझा सवाल (open loop) जो अंत तक खिंचे</li><li>Pre-climax tease: 'जो आगे हुआ, वो सबसे डरावना था…'</li><li>Final twist: वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है।</li></ul>
+</section>
+<section class="story" id="script"><h3 class="story-title">2 · Full Script</h3>
+<p class="kv"><span class="kvk">Hook:</span> "गाँव में एक दूधवाला आधी रात आता था। उसका दूध जो पीता, वो सुबह बहुत कमज़ोर उठता।"</p>
+<p class="kv"><span class="kvk">Setup:</span> किरदार की आम दुनिया स्थापित होती है ताकि दर्शक जुड़ सके; premise की पहली झलक: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है।</p>
+<p class="kv"><span class="kvk">Escalation:</span> संकेत बढ़ते हैं, माहौल घुटन भरा; डर का तंत्र उभरता है — पिशाच-जैसा देसी folklore।</p>
+<p class="kv"><span class="kvk">Climax:</span> किरदार उस सच से आमने-सामने टकराता है; सबसे डरावना पल।</p>
+<p class="kv"><span class="kvk">Ending:</span> वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है।</p>
+<p class="kv"><span class="kvk">Open Ending Option:</span> वैकल्पिक खुला अंत: सच अधूरा छोड़ें — दर्शक खुद सोचे कि पिशाच-जैसा देसी folklore। अब किसके पास जाएगा।</p>
+</section>
+<section class="story" id="scenes"><h3 class="story-title">3 · Scene-by-Scene Breakdown</h3>
+<div class="pkg-part">Scene 1 — सामान्य जीवन</div>
+<p class="kv"><span class="kvk">Scene Number:</span> 1</p>
+<p class="kv"><span class="kvk">Scene Description:</span> किरदार की रोज़मर्रा; जगह स्थापित होती है। मूड: शांत, सामान्य।</p>
+<p class="kv"><span class="kvk">Camera Direction:</span> slow push-in on a detail (hook)</p>
+<p class="kv"><span class="kvk">Mood:</span> शांत, सामान्य</p>
+<p class="kv"><span class="kvk">Sound Design:</span> रात के कीड़े, दूर कुत्ता, हवा + tension drone</p>
+<p class="kv"><span class="kvk">Voiceover Script:</span> "किरदार की रोज़मर्रा; जगह स्थापित होती है… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<div class="pkg-part">Scene 2 — हुक</div>
+<p class="kv"><span class="kvk">Scene Number:</span> 2</p>
+<p class="kv"><span class="kvk">Scene Description:</span> पहली असहजता: "गाँव में एक दूधवाला आधी रात आता था। उसका दूध जो पीता, वो सुबह बहुत कमज़ोर उठता।" मूड: हल्की बेचैनी।</p>
+<p class="kv"><span class="kvk">Camera Direction:</span> locked-off static (rising tension)</p>
+<p class="kv"><span class="kvk">Mood:</span> हल्की बेचैनी</p>
+<p class="kv"><span class="kvk">Sound Design:</span> रात के कीड़े, दूर कुत्ता, हवा + tension drone</p>
+<p class="kv"><span class="kvk">Voiceover Script:</span> "पहली असहजता: "गाँव में एक दूधवाला आधी रात आता था… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<div class="pkg-part">Scene 3 — पहला संकेत</div>
+<p class="kv"><span class="kvk">Scene Number:</span> 3</p>
+<p class="kv"><span class="kvk">Scene Description:</span> कुछ सूक्ष्म गड़बड़ी; किरदार नज़रअंदाज़ करता है। मूड: शक।</p>
+<p class="kv"><span class="kvk">Camera Direction:</span> slow tracking behind character</p>
+<p class="kv"><span class="kvk">Mood:</span> शक</p>
+<p class="kv"><span class="kvk">Sound Design:</span> रात के कीड़े, दूर कुत्ता, हवा + tension drone</p>
+<p class="kv"><span class="kvk">Voiceover Script:</span> "कुछ सूक्ष्म गड़बड़ी; किरदार नज़रअंदाज़ करता है… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<div class="pkg-part">Scene 4 — बढ़ती दहशत</div>
+<p class="kv"><span class="kvk">Scene Number:</span> 4</p>
+<p class="kv"><span class="kvk">Scene Description:</span> घटनाएँ बढ़ती हैं, premise गहराता है: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है। मूड: तनाव।</p>
+<p class="kv"><span class="kvk">Camera Direction:</span> POV shot (audience sees the dread)</p>
+<p class="kv"><span class="kvk">Mood:</span> तनाव</p>
+<p class="kv"><span class="kvk">Sound Design:</span> रात के कीड़े, दूर कुत्ता, हवा + tension drone</p>
+<p class="kv"><span class="kvk">Voiceover Script:</span> "घटनाएँ बढ़ती हैं, premise गहराता है: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<div class="pkg-part">Scene 5 — खोज/गहराई</div>
+<p class="kv"><span class="kvk">Scene Number:</span> 5</p>
+<p class="kv"><span class="kvk">Scene Description:</span> किरदार सच जानने की कोशिश करता है; माहौल घुटन भरा। मूड: डर।</p>
+<p class="kv"><span class="kvk">Camera Direction:</span> slow tilt-up to reveal</p>
+<p class="kv"><span class="kvk">Mood:</span> डर</p>
+<p class="kv"><span class="kvk">Sound Design:</span> रात के कीड़े, दूर कुत्ता, हवा + tension drone</p>
+<p class="kv"><span class="kvk">Voiceover Script:</span> "किरदार सच जानने की कोशिश करता है; माहौल घुटन भरा… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<div class="pkg-part">Scene 6 — खुलासा</div>
+<p class="kv"><span class="kvk">Scene Number:</span> 6</p>
+<p class="kv"><span class="kvk">Scene Description:</span> डर का स्रोत सामने आता है: पिशाच-जैसा देसी folklore। मूड: दहशत।</p>
+<p class="kv"><span class="kvk">Camera Direction:</span> slight handheld (panic at climax)</p>
+<p class="kv"><span class="kvk">Mood:</span> दहशत</p>
+<p class="kv"><span class="kvk">Sound Design:</span> रात के कीड़े, दूर कुत्ता, हवा + tension drone</p>
+<p class="kv"><span class="kvk">Voiceover Script:</span> "डर का स्रोत सामने आता है: पिशाच-जैसा देसी folklore… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<div class="pkg-part">Scene 7 — चरम</div>
+<p class="kv"><span class="kvk">Scene Number:</span> 7</p>
+<p class="kv"><span class="kvk">Scene Description:</span> आमने-सामने टकराव; सबसे डरावना पल। मूड: चरम भय।</p>
+<p class="kv"><span class="kvk">Camera Direction:</span> wide pull-back (isolation)</p>
+<p class="kv"><span class="kvk">Mood:</span> चरम भय</p>
+<p class="kv"><span class="kvk">Sound Design:</span> रात के कीड़े, दूर कुत्ता, हवा + tension drone</p>
+<p class="kv"><span class="kvk">Voiceover Script:</span> "आमने-सामने टकराव; सबसे डरावना पल… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<div class="pkg-part">Scene 8 — बेचैन अंत</div>
+<p class="kv"><span class="kvk">Scene Number:</span> 8</p>
+<p class="kv"><span class="kvk">Scene Description:</span> वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है। मूड: ठंडी, रेंगती बेचैनी।</p>
+<p class="kv"><span class="kvk">Camera Direction:</span> slow fade to black (unsettling end)</p>
+<p class="kv"><span class="kvk">Mood:</span> ठंडी, रेंगती बेचैनी</p>
+<p class="kv"><span class="kvk">Sound Design:</span> रात के कीड़े, दूर कुत्ता, हवा + tension drone</p>
+<p class="kv"><span class="kvk">Voiceover Script:</span> "वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+</section>
+<section class="story" id="img"><h3 class="story-title">4 · Image Generation Department (Leonardo · Flux · Midjourney · Recraft · Ideogram)</h3>
+<p class="note-line">--ar/--style सिर्फ़ Midjourney के लिए; बाकी tools में text भाग paste करें।</p>
+<div class="pkg-part">Scene 1</div>
+<div class="prompt"><div class="prompt-label">Main Character Prompt</div><code>विक्रम, 40s औरत, घरेलू, मटमैली साड़ी, डरी हुई, in scene 1 of "आधी रात का दूधवाला" (किरदार की रोज़मर्रा; जगह स्थापित होती है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, fearful subtle expression, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Supporting Character Prompt</div><code>a secondary figure in scene 1 of "आधी रात का दूधवाला" (किरदार की रोज़मर्रा; जगह स्थापित होती है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, ambiguous, partially obscured, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Environment Prompt</div><code>scene 1 of "आधी रात का दूधवाला" (किरदार की रोज़मर्रा; जगह स्थापित होती है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, no people, oppressive atmosphere, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Horror Entity Prompt</div><code>the presence (पिशाच-जैसा देसी folklore।) in scene 1 of "आधी रात का दूधवाला" (किरदार की रोज़मर्रा; जगह स्थापित होती है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, silhouette/suggestion only, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Establishing Shot Prompt</div><code>wide establishing of scene 1 of "आधी रात का दूधवाला" (किरदार की रोज़मर्रा; जगह स्थापित होती है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, single light source, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Close-Up Prompt</div><code>extreme close-up detail in scene 1 of "आधी रात का दूधवाला" (किरदार की रोज़मर्रा; जगह स्थापित होती है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, shallow DOF, dread, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Candidate Prompt</div><code>thumbnail candidate from scene 1 of "आधी रात का दूधवाला" (किरदार की रोज़मर्रा; जगह स्थापित होती है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, one focal subject, 80% dark + one light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="pkg-part">Scene 2</div>
+<div class="prompt"><div class="prompt-label">Main Character Prompt</div><code>विक्रम, 40s औरत, घरेलू, मटमैली साड़ी, डरी हुई, in scene 2 of "आधी रात का दूधवाला" (पहली असहजता: "गाँव में एक दूधवाला आधी रात आता था), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, fearful subtle expression, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Supporting Character Prompt</div><code>a secondary figure in scene 2 of "आधी रात का दूधवाला" (पहली असहजता: "गाँव में एक दूधवाला आधी रात आता था), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, ambiguous, partially obscured, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Environment Prompt</div><code>scene 2 of "आधी रात का दूधवाला" (पहली असहजता: "गाँव में एक दूधवाला आधी रात आता था), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, no people, oppressive atmosphere, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Horror Entity Prompt</div><code>the presence (पिशाच-जैसा देसी folklore।) in scene 2 of "आधी रात का दूधवाला" (पहली असहजता: "गाँव में एक दूधवाला आधी रात आता था), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, silhouette/suggestion only, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Establishing Shot Prompt</div><code>wide establishing of scene 2 of "आधी रात का दूधवाला" (पहली असहजता: "गाँव में एक दूधवाला आधी रात आता था), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, single light source, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Close-Up Prompt</div><code>extreme close-up detail in scene 2 of "आधी रात का दूधवाला" (पहली असहजता: "गाँव में एक दूधवाला आधी रात आता था), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, shallow DOF, dread, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Candidate Prompt</div><code>thumbnail candidate from scene 2 of "आधी रात का दूधवाला" (पहली असहजता: "गाँव में एक दूधवाला आधी रात आता था), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, one focal subject, 80% dark + one light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="pkg-part">Scene 3</div>
+<div class="prompt"><div class="prompt-label">Main Character Prompt</div><code>विक्रम, 40s औरत, घरेलू, मटमैली साड़ी, डरी हुई, in scene 3 of "आधी रात का दूधवाला" (कुछ सूक्ष्म गड़बड़ी; किरदार नज़रअंदाज़ करता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, fearful subtle expression, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Supporting Character Prompt</div><code>a secondary figure in scene 3 of "आधी रात का दूधवाला" (कुछ सूक्ष्म गड़बड़ी; किरदार नज़रअंदाज़ करता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, ambiguous, partially obscured, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Environment Prompt</div><code>scene 3 of "आधी रात का दूधवाला" (कुछ सूक्ष्म गड़बड़ी; किरदार नज़रअंदाज़ करता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, no people, oppressive atmosphere, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Horror Entity Prompt</div><code>the presence (पिशाच-जैसा देसी folklore।) in scene 3 of "आधी रात का दूधवाला" (कुछ सूक्ष्म गड़बड़ी; किरदार नज़रअंदाज़ करता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, silhouette/suggestion only, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Establishing Shot Prompt</div><code>wide establishing of scene 3 of "आधी रात का दूधवाला" (कुछ सूक्ष्म गड़बड़ी; किरदार नज़रअंदाज़ करता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, single light source, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Close-Up Prompt</div><code>extreme close-up detail in scene 3 of "आधी रात का दूधवाला" (कुछ सूक्ष्म गड़बड़ी; किरदार नज़रअंदाज़ करता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, shallow DOF, dread, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Candidate Prompt</div><code>thumbnail candidate from scene 3 of "आधी रात का दूधवाला" (कुछ सूक्ष्म गड़बड़ी; किरदार नज़रअंदाज़ करता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, one focal subject, 80% dark + one light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="pkg-part">Scene 4</div>
+<div class="prompt"><div class="prompt-label">Main Character Prompt</div><code>विक्रम, 40s औरत, घरेलू, मटमैली साड़ी, डरी हुई, in scene 4 of "आधी रात का दूधवाला" (घटनाएँ बढ़ती हैं, premise गहराता है: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, fearful subtle expression, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Supporting Character Prompt</div><code>a secondary figure in scene 4 of "आधी रात का दूधवाला" (घटनाएँ बढ़ती हैं, premise गहराता है: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, ambiguous, partially obscured, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Environment Prompt</div><code>scene 4 of "आधी रात का दूधवाला" (घटनाएँ बढ़ती हैं, premise गहराता है: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, no people, oppressive atmosphere, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Horror Entity Prompt</div><code>the presence (पिशाच-जैसा देसी folklore।) in scene 4 of "आधी रात का दूधवाला" (घटनाएँ बढ़ती हैं, premise गहराता है: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, silhouette/suggestion only, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Establishing Shot Prompt</div><code>wide establishing of scene 4 of "आधी रात का दूधवाला" (घटनाएँ बढ़ती हैं, premise गहराता है: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, single light source, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Close-Up Prompt</div><code>extreme close-up detail in scene 4 of "आधी रात का दूधवाला" (घटनाएँ बढ़ती हैं, premise गहराता है: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, shallow DOF, dread, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Candidate Prompt</div><code>thumbnail candidate from scene 4 of "आधी रात का दूधवाला" (घटनाएँ बढ़ती हैं, premise गहराता है: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, one focal subject, 80% dark + one light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="pkg-part">Scene 5</div>
+<div class="prompt"><div class="prompt-label">Main Character Prompt</div><code>विक्रम, 40s औरत, घरेलू, मटमैली साड़ी, डरी हुई, in scene 5 of "आधी रात का दूधवाला" (किरदार सच जानने की कोशिश करता है; माहौल घुटन भरा), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, fearful subtle expression, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Supporting Character Prompt</div><code>a secondary figure in scene 5 of "आधी रात का दूधवाला" (किरदार सच जानने की कोशिश करता है; माहौल घुटन भरा), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, ambiguous, partially obscured, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Environment Prompt</div><code>scene 5 of "आधी रात का दूधवाला" (किरदार सच जानने की कोशिश करता है; माहौल घुटन भरा), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, no people, oppressive atmosphere, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Horror Entity Prompt</div><code>the presence (पिशाच-जैसा देसी folklore।) in scene 5 of "आधी रात का दूधवाला" (किरदार सच जानने की कोशिश करता है; माहौल घुटन भरा), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, silhouette/suggestion only, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Establishing Shot Prompt</div><code>wide establishing of scene 5 of "आधी रात का दूधवाला" (किरदार सच जानने की कोशिश करता है; माहौल घुटन भरा), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, single light source, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Close-Up Prompt</div><code>extreme close-up detail in scene 5 of "आधी रात का दूधवाला" (किरदार सच जानने की कोशिश करता है; माहौल घुटन भरा), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, shallow DOF, dread, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Candidate Prompt</div><code>thumbnail candidate from scene 5 of "आधी रात का दूधवाला" (किरदार सच जानने की कोशिश करता है; माहौल घुटन भरा), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, one focal subject, 80% dark + one light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="pkg-part">Scene 6</div>
+<div class="prompt"><div class="prompt-label">Main Character Prompt</div><code>विक्रम, 40s औरत, घरेलू, मटमैली साड़ी, डरी हुई, in scene 6 of "आधी रात का दूधवाला" (डर का स्रोत सामने आता है: पिशाच-जैसा देसी folklore), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, fearful subtle expression, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Supporting Character Prompt</div><code>a secondary figure in scene 6 of "आधी रात का दूधवाला" (डर का स्रोत सामने आता है: पिशाच-जैसा देसी folklore), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, ambiguous, partially obscured, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Environment Prompt</div><code>scene 6 of "आधी रात का दूधवाला" (डर का स्रोत सामने आता है: पिशाच-जैसा देसी folklore), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, no people, oppressive atmosphere, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Horror Entity Prompt</div><code>the presence (पिशाच-जैसा देसी folklore।) in scene 6 of "आधी रात का दूधवाला" (डर का स्रोत सामने आता है: पिशाच-जैसा देसी folklore), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, silhouette/suggestion only, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Establishing Shot Prompt</div><code>wide establishing of scene 6 of "आधी रात का दूधवाला" (डर का स्रोत सामने आता है: पिशाच-जैसा देसी folklore), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, single light source, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Close-Up Prompt</div><code>extreme close-up detail in scene 6 of "आधी रात का दूधवाला" (डर का स्रोत सामने आता है: पिशाच-जैसा देसी folklore), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, shallow DOF, dread, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Candidate Prompt</div><code>thumbnail candidate from scene 6 of "आधी रात का दूधवाला" (डर का स्रोत सामने आता है: पिशाच-जैसा देसी folklore), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, one focal subject, 80% dark + one light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="pkg-part">Scene 7</div>
+<div class="prompt"><div class="prompt-label">Main Character Prompt</div><code>विक्रम, 40s औरत, घरेलू, मटमैली साड़ी, डरी हुई, in scene 7 of "आधी रात का दूधवाला" (आमने-सामने टकराव; सबसे डरावना पल), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, fearful subtle expression, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Supporting Character Prompt</div><code>a secondary figure in scene 7 of "आधी रात का दूधवाला" (आमने-सामने टकराव; सबसे डरावना पल), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, ambiguous, partially obscured, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Environment Prompt</div><code>scene 7 of "आधी रात का दूधवाला" (आमने-सामने टकराव; सबसे डरावना पल), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, no people, oppressive atmosphere, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Horror Entity Prompt</div><code>the presence (पिशाच-जैसा देसी folklore।) in scene 7 of "आधी रात का दूधवाला" (आमने-सामने टकराव; सबसे डरावना पल), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, silhouette/suggestion only, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Establishing Shot Prompt</div><code>wide establishing of scene 7 of "आधी रात का दूधवाला" (आमने-सामने टकराव; सबसे डरावना पल), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, single light source, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Close-Up Prompt</div><code>extreme close-up detail in scene 7 of "आधी रात का दूधवाला" (आमने-सामने टकराव; सबसे डरावना पल), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, shallow DOF, dread, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Candidate Prompt</div><code>thumbnail candidate from scene 7 of "आधी रात का दूधवाला" (आमने-सामने टकराव; सबसे डरावना पल), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, one focal subject, 80% dark + one light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="pkg-part">Scene 8</div>
+<div class="prompt"><div class="prompt-label">Main Character Prompt</div><code>विक्रम, 40s औरत, घरेलू, मटमैली साड़ी, डरी हुई, in scene 8 of "आधी रात का दूधवाला" (वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, fearful subtle expression, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Supporting Character Prompt</div><code>a secondary figure in scene 8 of "आधी रात का दूधवाला" (वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, ambiguous, partially obscured, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Environment Prompt</div><code>scene 8 of "आधी रात का दूधवाला" (वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, no people, oppressive atmosphere, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Horror Entity Prompt</div><code>the presence (पिशाच-जैसा देसी folklore।) in scene 8 of "आधी रात का दूधवाला" (वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, silhouette/suggestion only, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Establishing Shot Prompt</div><code>wide establishing of scene 8 of "आधी रात का दूधवाला" (वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, single light source, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Close-Up Prompt</div><code>extreme close-up detail in scene 8 of "आधी रात का दूधवाला" (वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, shallow DOF, dread, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Candidate Prompt</div><code>thumbnail candidate from scene 8 of "आधी रात का दूधवाला" (वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, one focal subject, 80% dark + one light, bold-text space, --ar 16:9 --style raw</code></div>
+</section>
+<section class="story" id="vid"><h3 class="story-title">5 · Video Generation Department (Veo 3 · Kling · Hailuo · Runway · Pika · Luma)</h3>
+<div class="pkg-part">Scene 1</div>
+<div class="prompt"><div class="prompt-label">Image-to-Video Prompt</div><code>animate scene 1 (किरदार की रोज़मर्रा; जगह स्थापित होती है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, minimal motion, eerie stillness, 5-8s</code></div>
+<div class="prompt"><div class="prompt-label">Camera Motion Prompt</div><code>very slow push-in / locked-off; no fast pan</code></div>
+<div class="prompt"><div class="prompt-label">Cinematic Movement Prompt</div><code>subtle dolly + rack focus toward subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore</code></div>
+<div class="prompt"><div class="prompt-label">Atmosphere Prompt</div><code>drifting fog, floating dust, faint light flicker</code></div>
+<div class="prompt"><div class="prompt-label">Horror Motion Prompt</div><code>shadow (पिशाच-जैसा देसी folklore।) slowly lengthens/approaches at frame edge</code></div>
+<div class="pkg-part">Scene 2</div>
+<div class="prompt"><div class="prompt-label">Image-to-Video Prompt</div><code>animate scene 2 (पहली असहजता: "गाँव में एक दूधवाला आधी रात आता था), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, minimal motion, eerie stillness, 5-8s</code></div>
+<div class="prompt"><div class="prompt-label">Camera Motion Prompt</div><code>very slow push-in / locked-off; no fast pan</code></div>
+<div class="prompt"><div class="prompt-label">Cinematic Movement Prompt</div><code>subtle dolly + rack focus toward subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore</code></div>
+<div class="prompt"><div class="prompt-label">Atmosphere Prompt</div><code>drifting fog, floating dust, faint light flicker</code></div>
+<div class="prompt"><div class="prompt-label">Horror Motion Prompt</div><code>shadow (पिशाच-जैसा देसी folklore।) slowly lengthens/approaches at frame edge</code></div>
+<div class="pkg-part">Scene 3</div>
+<div class="prompt"><div class="prompt-label">Image-to-Video Prompt</div><code>animate scene 3 (कुछ सूक्ष्म गड़बड़ी; किरदार नज़रअंदाज़ करता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, minimal motion, eerie stillness, 5-8s</code></div>
+<div class="prompt"><div class="prompt-label">Camera Motion Prompt</div><code>very slow push-in / locked-off; no fast pan</code></div>
+<div class="prompt"><div class="prompt-label">Cinematic Movement Prompt</div><code>subtle dolly + rack focus toward subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore</code></div>
+<div class="prompt"><div class="prompt-label">Atmosphere Prompt</div><code>drifting fog, floating dust, faint light flicker</code></div>
+<div class="prompt"><div class="prompt-label">Horror Motion Prompt</div><code>shadow (पिशाच-जैसा देसी folklore।) slowly lengthens/approaches at frame edge</code></div>
+<div class="pkg-part">Scene 4</div>
+<div class="prompt"><div class="prompt-label">Image-to-Video Prompt</div><code>animate scene 4 (घटनाएँ बढ़ती हैं, premise गहराता है: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, minimal motion, eerie stillness, 5-8s</code></div>
+<div class="prompt"><div class="prompt-label">Camera Motion Prompt</div><code>very slow push-in / locked-off; no fast pan</code></div>
+<div class="prompt"><div class="prompt-label">Cinematic Movement Prompt</div><code>subtle dolly + rack focus toward subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore</code></div>
+<div class="prompt"><div class="prompt-label">Atmosphere Prompt</div><code>drifting fog, floating dust, faint light flicker</code></div>
+<div class="prompt"><div class="prompt-label">Horror Motion Prompt</div><code>shadow (पिशाच-जैसा देसी folklore।) slowly lengthens/approaches at frame edge</code></div>
+<div class="pkg-part">Scene 5</div>
+<div class="prompt"><div class="prompt-label">Image-to-Video Prompt</div><code>animate scene 5 (किरदार सच जानने की कोशिश करता है; माहौल घुटन भरा), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, minimal motion, eerie stillness, 5-8s</code></div>
+<div class="prompt"><div class="prompt-label">Camera Motion Prompt</div><code>very slow push-in / locked-off; no fast pan</code></div>
+<div class="prompt"><div class="prompt-label">Cinematic Movement Prompt</div><code>subtle dolly + rack focus toward subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore</code></div>
+<div class="prompt"><div class="prompt-label">Atmosphere Prompt</div><code>drifting fog, floating dust, faint light flicker</code></div>
+<div class="prompt"><div class="prompt-label">Horror Motion Prompt</div><code>shadow (पिशाच-जैसा देसी folklore।) slowly lengthens/approaches at frame edge</code></div>
+<div class="pkg-part">Scene 6</div>
+<div class="prompt"><div class="prompt-label">Image-to-Video Prompt</div><code>animate scene 6 (डर का स्रोत सामने आता है: पिशाच-जैसा देसी folklore), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, minimal motion, eerie stillness, 5-8s</code></div>
+<div class="prompt"><div class="prompt-label">Camera Motion Prompt</div><code>very slow push-in / locked-off; no fast pan</code></div>
+<div class="prompt"><div class="prompt-label">Cinematic Movement Prompt</div><code>subtle dolly + rack focus toward subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore</code></div>
+<div class="prompt"><div class="prompt-label">Atmosphere Prompt</div><code>drifting fog, floating dust, faint light flicker</code></div>
+<div class="prompt"><div class="prompt-label">Horror Motion Prompt</div><code>shadow (पिशाच-जैसा देसी folklore।) slowly lengthens/approaches at frame edge</code></div>
+<div class="pkg-part">Scene 7</div>
+<div class="prompt"><div class="prompt-label">Image-to-Video Prompt</div><code>animate scene 7 (आमने-सामने टकराव; सबसे डरावना पल), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, minimal motion, eerie stillness, 5-8s</code></div>
+<div class="prompt"><div class="prompt-label">Camera Motion Prompt</div><code>very slow push-in / locked-off; no fast pan</code></div>
+<div class="prompt"><div class="prompt-label">Cinematic Movement Prompt</div><code>subtle dolly + rack focus toward subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore</code></div>
+<div class="prompt"><div class="prompt-label">Atmosphere Prompt</div><code>drifting fog, floating dust, faint light flicker</code></div>
+<div class="prompt"><div class="prompt-label">Horror Motion Prompt</div><code>shadow (पिशाच-जैसा देसी folklore।) slowly lengthens/approaches at frame edge</code></div>
+<div class="pkg-part">Scene 8</div>
+<div class="prompt"><div class="prompt-label">Image-to-Video Prompt</div><code>animate scene 8 (वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है), देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, minimal motion, eerie stillness, 5-8s</code></div>
+<div class="prompt"><div class="prompt-label">Camera Motion Prompt</div><code>very slow push-in / locked-off; no fast pan</code></div>
+<div class="prompt"><div class="prompt-label">Cinematic Movement Prompt</div><code>subtle dolly + rack focus toward subject, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore</code></div>
+<div class="prompt"><div class="prompt-label">Atmosphere Prompt</div><code>drifting fog, floating dust, faint light flicker</code></div>
+<div class="prompt"><div class="prompt-label">Horror Motion Prompt</div><code>shadow (पिशाच-जैसा देसी folklore।) slowly lengthens/approaches at frame edge</code></div>
+</section>
+<section class="story" id="anim"><h3 class="story-title">6 · 2.5D Animation Department</h3>
+<div class="pkg-part">Scene 1</div>
+<div class="prompt"><div class="prompt-label">Foreground Layer Prompt</div><code>nearest object (frame/branch/railing) — strongest parallax</code></div>
+<div class="prompt"><div class="prompt-label">Midground Layer Prompt</div><code>विक्रम and main action on this plane</code></div>
+<div class="prompt"><div class="prompt-label">Background Layer Prompt</div><code>setting: किरदार की रोज़मर्रा; जगह स्थापित होती है — slow parallax</code></div>
+<div class="prompt"><div class="prompt-label">Particle Layer Prompt</div><code>dust motes / embers / rain specks drifting slowly</code></div>
+<div class="prompt"><div class="prompt-label">Fog Layer Prompt</div><code>semi-transparent fog, 30-50% opacity, slow drift</code></div>
+<div class="prompt"><div class="prompt-label">Lighting Layer Prompt</div><code>single source glow + animated flicker on scare</code></div>
+<div class="prompt"><div class="prompt-label">Parallax Motion</div><code>FG fast · MG medium · BG slow for real depth</code></div>
+<div class="prompt"><div class="prompt-label">Depth Map Instructions</div><code>grayscale depth: near=white, far=black; feather edges; use for displacement</code></div>
+<div class="pkg-part">Scene 2</div>
+<div class="prompt"><div class="prompt-label">Foreground Layer Prompt</div><code>nearest object (frame/branch/railing) — strongest parallax</code></div>
+<div class="prompt"><div class="prompt-label">Midground Layer Prompt</div><code>विक्रम and main action on this plane</code></div>
+<div class="prompt"><div class="prompt-label">Background Layer Prompt</div><code>setting: पहली असहजता: "गाँव में एक दूधवाला आधी रात आता था — slow parallax</code></div>
+<div class="prompt"><div class="prompt-label">Particle Layer Prompt</div><code>dust motes / embers / rain specks drifting slowly</code></div>
+<div class="prompt"><div class="prompt-label">Fog Layer Prompt</div><code>semi-transparent fog, 30-50% opacity, slow drift</code></div>
+<div class="prompt"><div class="prompt-label">Lighting Layer Prompt</div><code>single source glow + animated flicker on scare</code></div>
+<div class="prompt"><div class="prompt-label">Parallax Motion</div><code>FG fast · MG medium · BG slow for real depth</code></div>
+<div class="prompt"><div class="prompt-label">Depth Map Instructions</div><code>grayscale depth: near=white, far=black; feather edges; use for displacement</code></div>
+<div class="pkg-part">Scene 3</div>
+<div class="prompt"><div class="prompt-label">Foreground Layer Prompt</div><code>nearest object (frame/branch/railing) — strongest parallax</code></div>
+<div class="prompt"><div class="prompt-label">Midground Layer Prompt</div><code>विक्रम and main action on this plane</code></div>
+<div class="prompt"><div class="prompt-label">Background Layer Prompt</div><code>setting: कुछ सूक्ष्म गड़बड़ी; किरदार नज़रअंदाज़ करता है — slow parallax</code></div>
+<div class="prompt"><div class="prompt-label">Particle Layer Prompt</div><code>dust motes / embers / rain specks drifting slowly</code></div>
+<div class="prompt"><div class="prompt-label">Fog Layer Prompt</div><code>semi-transparent fog, 30-50% opacity, slow drift</code></div>
+<div class="prompt"><div class="prompt-label">Lighting Layer Prompt</div><code>single source glow + animated flicker on scare</code></div>
+<div class="prompt"><div class="prompt-label">Parallax Motion</div><code>FG fast · MG medium · BG slow for real depth</code></div>
+<div class="prompt"><div class="prompt-label">Depth Map Instructions</div><code>grayscale depth: near=white, far=black; feather edges; use for displacement</code></div>
+<div class="pkg-part">Scene 4</div>
+<div class="prompt"><div class="prompt-label">Foreground Layer Prompt</div><code>nearest object (frame/branch/railing) — strongest parallax</code></div>
+<div class="prompt"><div class="prompt-label">Midground Layer Prompt</div><code>विक्रम and main action on this plane</code></div>
+<div class="prompt"><div class="prompt-label">Background Layer Prompt</div><code>setting: घटनाएँ बढ़ती हैं, premise गहराता है: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है — slow parallax</code></div>
+<div class="prompt"><div class="prompt-label">Particle Layer Prompt</div><code>dust motes / embers / rain specks drifting slowly</code></div>
+<div class="prompt"><div class="prompt-label">Fog Layer Prompt</div><code>semi-transparent fog, 30-50% opacity, slow drift</code></div>
+<div class="prompt"><div class="prompt-label">Lighting Layer Prompt</div><code>single source glow + animated flicker on scare</code></div>
+<div class="prompt"><div class="prompt-label">Parallax Motion</div><code>FG fast · MG medium · BG slow for real depth</code></div>
+<div class="prompt"><div class="prompt-label">Depth Map Instructions</div><code>grayscale depth: near=white, far=black; feather edges; use for displacement</code></div>
+<div class="pkg-part">Scene 5</div>
+<div class="prompt"><div class="prompt-label">Foreground Layer Prompt</div><code>nearest object (frame/branch/railing) — strongest parallax</code></div>
+<div class="prompt"><div class="prompt-label">Midground Layer Prompt</div><code>विक्रम and main action on this plane</code></div>
+<div class="prompt"><div class="prompt-label">Background Layer Prompt</div><code>setting: किरदार सच जानने की कोशिश करता है; माहौल घुटन भरा — slow parallax</code></div>
+<div class="prompt"><div class="prompt-label">Particle Layer Prompt</div><code>dust motes / embers / rain specks drifting slowly</code></div>
+<div class="prompt"><div class="prompt-label">Fog Layer Prompt</div><code>semi-transparent fog, 30-50% opacity, slow drift</code></div>
+<div class="prompt"><div class="prompt-label">Lighting Layer Prompt</div><code>single source glow + animated flicker on scare</code></div>
+<div class="prompt"><div class="prompt-label">Parallax Motion</div><code>FG fast · MG medium · BG slow for real depth</code></div>
+<div class="prompt"><div class="prompt-label">Depth Map Instructions</div><code>grayscale depth: near=white, far=black; feather edges; use for displacement</code></div>
+<div class="pkg-part">Scene 6</div>
+<div class="prompt"><div class="prompt-label">Foreground Layer Prompt</div><code>nearest object (frame/branch/railing) — strongest parallax</code></div>
+<div class="prompt"><div class="prompt-label">Midground Layer Prompt</div><code>विक्रम and main action on this plane</code></div>
+<div class="prompt"><div class="prompt-label">Background Layer Prompt</div><code>setting: डर का स्रोत सामने आता है: पिशाच-जैसा देसी folklore — slow parallax</code></div>
+<div class="prompt"><div class="prompt-label">Particle Layer Prompt</div><code>dust motes / embers / rain specks drifting slowly</code></div>
+<div class="prompt"><div class="prompt-label">Fog Layer Prompt</div><code>semi-transparent fog, 30-50% opacity, slow drift</code></div>
+<div class="prompt"><div class="prompt-label">Lighting Layer Prompt</div><code>single source glow + animated flicker on scare</code></div>
+<div class="prompt"><div class="prompt-label">Parallax Motion</div><code>FG fast · MG medium · BG slow for real depth</code></div>
+<div class="prompt"><div class="prompt-label">Depth Map Instructions</div><code>grayscale depth: near=white, far=black; feather edges; use for displacement</code></div>
+<div class="pkg-part">Scene 7</div>
+<div class="prompt"><div class="prompt-label">Foreground Layer Prompt</div><code>nearest object (frame/branch/railing) — strongest parallax</code></div>
+<div class="prompt"><div class="prompt-label">Midground Layer Prompt</div><code>विक्रम and main action on this plane</code></div>
+<div class="prompt"><div class="prompt-label">Background Layer Prompt</div><code>setting: आमने-सामने टकराव; सबसे डरावना पल — slow parallax</code></div>
+<div class="prompt"><div class="prompt-label">Particle Layer Prompt</div><code>dust motes / embers / rain specks drifting slowly</code></div>
+<div class="prompt"><div class="prompt-label">Fog Layer Prompt</div><code>semi-transparent fog, 30-50% opacity, slow drift</code></div>
+<div class="prompt"><div class="prompt-label">Lighting Layer Prompt</div><code>single source glow + animated flicker on scare</code></div>
+<div class="prompt"><div class="prompt-label">Parallax Motion</div><code>FG fast · MG medium · BG slow for real depth</code></div>
+<div class="prompt"><div class="prompt-label">Depth Map Instructions</div><code>grayscale depth: near=white, far=black; feather edges; use for displacement</code></div>
+<div class="pkg-part">Scene 8</div>
+<div class="prompt"><div class="prompt-label">Foreground Layer Prompt</div><code>nearest object (frame/branch/railing) — strongest parallax</code></div>
+<div class="prompt"><div class="prompt-label">Midground Layer Prompt</div><code>विक्रम and main action on this plane</code></div>
+<div class="prompt"><div class="prompt-label">Background Layer Prompt</div><code>setting: वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है — slow parallax</code></div>
+<div class="prompt"><div class="prompt-label">Particle Layer Prompt</div><code>dust motes / embers / rain specks drifting slowly</code></div>
+<div class="prompt"><div class="prompt-label">Fog Layer Prompt</div><code>semi-transparent fog, 30-50% opacity, slow drift</code></div>
+<div class="prompt"><div class="prompt-label">Lighting Layer Prompt</div><code>single source glow + animated flicker on scare</code></div>
+<div class="prompt"><div class="prompt-label">Parallax Motion</div><code>FG fast · MG medium · BG slow for real depth</code></div>
+<div class="prompt"><div class="prompt-label">Depth Map Instructions</div><code>grayscale depth: near=white, far=black; feather edges; use for displacement</code></div>
+</section>
+<section class="story" id="vo"><h3 class="story-title">7 · Voiceover Department (Hindi + English)</h3>
+<div class="pkg-part">Scene 1</div>
+<p class="kv"><span class="kvk">Hindi Voiceover:</span> "किरदार की रोज़मर्रा; जगह स्थापित होती है… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<p class="kv"><span class="kvk">English Voiceover:</span> ";… and that was when I knew I wasn't alone."</p>
+<p class="kv"><span class="kvk">ElevenLabs Prompt:</span> deep calm narrator, slow pace, Stability 50, Similarity 75, style 'whispered dread'</p>
+<p class="kv"><span class="kvk">Emotion Prompt:</span> emotion: शांत, सामान्य; lower volume + slower at the scare</p>
+<p class="kv"><span class="kvk">Narration Direction:</span> pause 1-2s after the unsettling line; let silence breathe</p>
+<div class="pkg-part">Scene 2</div>
+<p class="kv"><span class="kvk">Hindi Voiceover:</span> "पहली असहजता: "गाँव में एक दूधवाला आधी रात आता था… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<p class="kv"><span class="kvk">English Voiceover:</span> ": "… and that was when I knew I wasn't alone."</p>
+<p class="kv"><span class="kvk">ElevenLabs Prompt:</span> deep calm narrator, slow pace, Stability 50, Similarity 75, style 'whispered dread'</p>
+<p class="kv"><span class="kvk">Emotion Prompt:</span> emotion: हल्की बेचैनी; lower volume + slower at the scare</p>
+<p class="kv"><span class="kvk">Narration Direction:</span> pause 1-2s after the unsettling line; let silence breathe</p>
+<div class="pkg-part">Scene 3</div>
+<p class="kv"><span class="kvk">Hindi Voiceover:</span> "कुछ सूक्ष्म गड़बड़ी; किरदार नज़रअंदाज़ करता है… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<p class="kv"><span class="kvk">English Voiceover:</span> ";… and that was when I knew I wasn't alone."</p>
+<p class="kv"><span class="kvk">ElevenLabs Prompt:</span> deep calm narrator, slow pace, Stability 50, Similarity 75, style 'whispered dread'</p>
+<p class="kv"><span class="kvk">Emotion Prompt:</span> emotion: शक; lower volume + slower at the scare</p>
+<p class="kv"><span class="kvk">Narration Direction:</span> pause 1-2s after the unsettling line; let silence breathe</p>
+<div class="pkg-part">Scene 4</div>
+<p class="kv"><span class="kvk">Hindi Voiceover:</span> "घटनाएँ बढ़ती हैं, premise गहराता है: एक रहस्यमय दूधवाला जो रात को आता है और जीवन-शक्ति चूस लेता है… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<p class="kv"><span class="kvk">English Voiceover:</span> ", premise  :          -… and that was when I knew I wasn't alone."</p>
+<p class="kv"><span class="kvk">ElevenLabs Prompt:</span> deep calm narrator, slow pace, Stability 50, Similarity 75, style 'whispered dread'</p>
+<p class="kv"><span class="kvk">Emotion Prompt:</span> emotion: तनाव; lower volume + slower at the scare</p>
+<p class="kv"><span class="kvk">Narration Direction:</span> pause 1-2s after the unsettling line; let silence breathe</p>
+<div class="pkg-part">Scene 5</div>
+<p class="kv"><span class="kvk">Hindi Voiceover:</span> "किरदार सच जानने की कोशिश करता है; माहौल घुटन भरा… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<p class="kv"><span class="kvk">English Voiceover:</span> ";… and that was when I knew I wasn't alone."</p>
+<p class="kv"><span class="kvk">ElevenLabs Prompt:</span> deep calm narrator, slow pace, Stability 50, Similarity 75, style 'whispered dread'</p>
+<p class="kv"><span class="kvk">Emotion Prompt:</span> emotion: डर; lower volume + slower at the scare</p>
+<p class="kv"><span class="kvk">Narration Direction:</span> pause 1-2s after the unsettling line; let silence breathe</p>
+<div class="pkg-part">Scene 6</div>
+<p class="kv"><span class="kvk">Hindi Voiceover:</span> "डर का स्रोत सामने आता है: पिशाच-जैसा देसी folklore… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<p class="kv"><span class="kvk">English Voiceover:</span> ": -  folklore… and that was when I knew I wasn't alone."</p>
+<p class="kv"><span class="kvk">ElevenLabs Prompt:</span> deep calm narrator, slow pace, Stability 50, Similarity 75, style 'whispered dread'</p>
+<p class="kv"><span class="kvk">Emotion Prompt:</span> emotion: दहशत; lower volume + slower at the scare</p>
+<p class="kv"><span class="kvk">Narration Direction:</span> pause 1-2s after the unsettling line; let silence breathe</p>
+<div class="pkg-part">Scene 7</div>
+<p class="kv"><span class="kvk">Hindi Voiceover:</span> "आमने-सामने टकराव; सबसे डरावना पल… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<p class="kv"><span class="kvk">English Voiceover:</span> "- ;… and that was when I knew I wasn't alone."</p>
+<p class="kv"><span class="kvk">ElevenLabs Prompt:</span> deep calm narrator, slow pace, Stability 50, Similarity 75, style 'whispered dread'</p>
+<p class="kv"><span class="kvk">Emotion Prompt:</span> emotion: चरम भय; lower volume + slower at the scare</p>
+<p class="kv"><span class="kvk">Narration Direction:</span> pause 1-2s after the unsettling line; let silence breathe</p>
+<div class="pkg-part">Scene 8</div>
+<p class="kv"><span class="kvk">Hindi Voiceover:</span> "वो उसका पीछा करता है — दूधवाला खेत के बीच गायब, और उसकी बाल्टी में दूध नहीं, कुछ और लाल है… और तभी मुझे लगा, मैं अकेला नहीं हूँ।"</p>
+<p class="kv"><span class="kvk">English Voiceover:</span> ",      ,… and that was when I knew I wasn't alone."</p>
+<p class="kv"><span class="kvk">ElevenLabs Prompt:</span> deep calm narrator, slow pace, Stability 50, Similarity 75, style 'whispered dread'</p>
+<p class="kv"><span class="kvk">Emotion Prompt:</span> emotion: ठंडी, रेंगती बेचैनी; lower volume + slower at the scare</p>
+<p class="kv"><span class="kvk">Narration Direction:</span> pause 1-2s after the unsettling line; let silence breathe</p>
+</section>
+<section class="story" id="snd"><h3 class="story-title">8 · Sound Design Department</h3>
+<div class="pkg-part">Scene 1</div>
+<p class="kv"><span class="kvk">Ambient Sound Prompt:</span> रात के कीड़े, दूर कुत्ता, हवा</p>
+<p class="kv"><span class="kvk">Foley Prompt:</span> footsteps, cloth rustle, door creak, breath</p>
+<p class="kv"><span class="kvk">Tension Build Prompt:</span> rising low drone / sub-bass swell</p>
+<p class="kv"><span class="kvk">Jump Scare Prompt:</span> full silence then one sharp stinger (use sparingly)</p>
+<p class="kv"><span class="kvk">Background Music Prompt:</span> minimal dark ambient pad, very low in mix, no melody</p>
+<div class="pkg-part">Scene 2</div>
+<p class="kv"><span class="kvk">Ambient Sound Prompt:</span> रात के कीड़े, दूर कुत्ता, हवा</p>
+<p class="kv"><span class="kvk">Foley Prompt:</span> footsteps, cloth rustle, door creak, breath</p>
+<p class="kv"><span class="kvk">Tension Build Prompt:</span> rising low drone / sub-bass swell</p>
+<p class="kv"><span class="kvk">Jump Scare Prompt:</span> full silence then one sharp stinger (use sparingly)</p>
+<p class="kv"><span class="kvk">Background Music Prompt:</span> minimal dark ambient pad, very low in mix, no melody</p>
+<div class="pkg-part">Scene 3</div>
+<p class="kv"><span class="kvk">Ambient Sound Prompt:</span> रात के कीड़े, दूर कुत्ता, हवा</p>
+<p class="kv"><span class="kvk">Foley Prompt:</span> footsteps, cloth rustle, door creak, breath</p>
+<p class="kv"><span class="kvk">Tension Build Prompt:</span> rising low drone / sub-bass swell</p>
+<p class="kv"><span class="kvk">Jump Scare Prompt:</span> full silence then one sharp stinger (use sparingly)</p>
+<p class="kv"><span class="kvk">Background Music Prompt:</span> minimal dark ambient pad, very low in mix, no melody</p>
+<div class="pkg-part">Scene 4</div>
+<p class="kv"><span class="kvk">Ambient Sound Prompt:</span> रात के कीड़े, दूर कुत्ता, हवा</p>
+<p class="kv"><span class="kvk">Foley Prompt:</span> footsteps, cloth rustle, door creak, breath</p>
+<p class="kv"><span class="kvk">Tension Build Prompt:</span> rising low drone / sub-bass swell</p>
+<p class="kv"><span class="kvk">Jump Scare Prompt:</span> full silence then one sharp stinger (use sparingly)</p>
+<p class="kv"><span class="kvk">Background Music Prompt:</span> minimal dark ambient pad, very low in mix, no melody</p>
+<div class="pkg-part">Scene 5</div>
+<p class="kv"><span class="kvk">Ambient Sound Prompt:</span> रात के कीड़े, दूर कुत्ता, हवा</p>
+<p class="kv"><span class="kvk">Foley Prompt:</span> footsteps, cloth rustle, door creak, breath</p>
+<p class="kv"><span class="kvk">Tension Build Prompt:</span> rising low drone / sub-bass swell</p>
+<p class="kv"><span class="kvk">Jump Scare Prompt:</span> full silence then one sharp stinger (use sparingly)</p>
+<p class="kv"><span class="kvk">Background Music Prompt:</span> minimal dark ambient pad, very low in mix, no melody</p>
+<div class="pkg-part">Scene 6</div>
+<p class="kv"><span class="kvk">Ambient Sound Prompt:</span> रात के कीड़े, दूर कुत्ता, हवा</p>
+<p class="kv"><span class="kvk">Foley Prompt:</span> footsteps, cloth rustle, door creak, breath</p>
+<p class="kv"><span class="kvk">Tension Build Prompt:</span> rising low drone / sub-bass swell</p>
+<p class="kv"><span class="kvk">Jump Scare Prompt:</span> full silence then one sharp stinger (use sparingly)</p>
+<p class="kv"><span class="kvk">Background Music Prompt:</span> minimal dark ambient pad, very low in mix, no melody</p>
+<div class="pkg-part">Scene 7</div>
+<p class="kv"><span class="kvk">Ambient Sound Prompt:</span> रात के कीड़े, दूर कुत्ता, हवा</p>
+<p class="kv"><span class="kvk">Foley Prompt:</span> footsteps, cloth rustle, door creak, breath</p>
+<p class="kv"><span class="kvk">Tension Build Prompt:</span> rising low drone / sub-bass swell</p>
+<p class="kv"><span class="kvk">Jump Scare Prompt:</span> full silence then one sharp stinger (use sparingly)</p>
+<p class="kv"><span class="kvk">Background Music Prompt:</span> minimal dark ambient pad, very low in mix, no melody</p>
+<div class="pkg-part">Scene 8</div>
+<p class="kv"><span class="kvk">Ambient Sound Prompt:</span> रात के कीड़े, दूर कुत्ता, हवा</p>
+<p class="kv"><span class="kvk">Foley Prompt:</span> footsteps, cloth rustle, door creak, breath</p>
+<p class="kv"><span class="kvk">Tension Build Prompt:</span> rising low drone / sub-bass swell</p>
+<p class="kv"><span class="kvk">Jump Scare Prompt:</span> full silence then one sharp stinger (use sparingly)</p>
+<p class="kv"><span class="kvk">Background Music Prompt:</span> minimal dark ambient pad, very low in mix, no melody</p>
+</section>
+<section class="story" id="thumb"><h3 class="story-title">9 · Thumbnail Department (10 Concepts + 10 Prompts)</h3>
+<div class="pkg-part">10 Thumbnail Concepts</div>
+<ul><li>Concept 1: डरा हुआ चेहरा आधा छाया में — 80% अँधेरा + एक रोशनी, curiosity gap।</li><li>Concept 2: entity की धुंधली परछाई — 80% अँधेरा + एक रोशनी, curiosity gap।</li><li>Concept 3: एक अकेली रोशनी का स्रोत — 80% अँधेरा + एक रोशनी, curiosity gap।</li><li>Concept 4: खाली जगह + अकेली आकृति — 80% अँधेरा + एक रोशनी, curiosity gap।</li><li>Concept 5: हाथ/दरवाज़ा क्लोज़-अप — 80% अँधेरा + एक रोशनी, curiosity gap।</li><li>Concept 6: ऊपर से (top-down) सहमा किरदार — 80% अँधेरा + एक रोशनी, curiosity gap।</li><li>Concept 7: खिड़की में झाँकता चेहरा — 80% अँधेरा + एक रोशनी, curiosity gap।</li><li>Concept 8: टूटा/धुंधला reflection — 80% अँधेरा + एक रोशनी, curiosity gap।</li><li>Concept 9: रात का सुनसान wide — 80% अँधेरा + एक रोशनी, curiosity gap।</li><li>Concept 10: आँख का extreme close-up — 80% अँधेरा + एक रोशनी, curiosity gap।</li></ul>
+<div class="pkg-part">10 Thumbnail Prompts</div>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt 1</div><code>YouTube thumbnail for "आधी रात का दूधवाला", डरा हुआ चेहरा आधा छाया में, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt 2</div><code>YouTube thumbnail for "आधी रात का दूधवाला", entity की धुंधली परछाई, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt 3</div><code>YouTube thumbnail for "आधी रात का दूधवाला", एक अकेली रोशनी का स्रोत, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt 4</div><code>YouTube thumbnail for "आधी रात का दूधवाला", खाली जगह + अकेली आकृति, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt 5</div><code>YouTube thumbnail for "आधी रात का दूधवाला", हाथ/दरवाज़ा क्लोज़-अप, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt 6</div><code>YouTube thumbnail for "आधी रात का दूधवाला", ऊपर से (top-down) सहमा किरदार, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt 7</div><code>YouTube thumbnail for "आधी रात का दूधवाला", खिड़की में झाँकता चेहरा, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt 8</div><code>YouTube thumbnail for "आधी रात का दूधवाला", टूटा/धुंधला reflection, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt 9</div><code>YouTube thumbnail for "आधी रात का दूधवाला", रात का सुनसान wide, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, bold-text space, --ar 16:9 --style raw</code></div>
+<div class="prompt"><div class="prompt-label">Thumbnail Prompt 10</div><code>YouTube thumbnail for "आधी रात का दूधवाला", आँख का extreme close-up, देसी atmospheric horror, Indian setting, warm dim bulb / lantern, fog, wet ground, old haveli / village / urban India, cinematic, photorealistic, eerie, no gore, palette: black, deep brown, rusty orange, old-bulb yellow, high contrast, dramatic rim light, bold-text space, --ar 16:9 --style raw</code></div>
+<p class="kv"><span class="kvk">Thumbnail Text Ideas:</span> वो लौटी · रात 2 बजे · मत जाना · आख़िरी रात · वो अंदर है</p>
+<p class="kv"><span class="kvk">CTR Optimization:</span> एक focal point; curiosity gap; चेहरे का डर &gt; राक्षस; mobile पर साफ़; 2 versions A/B टेस्ट।</p>
+</section>
+<section class="story" id="seo"><h3 class="story-title">10 · SEO Department</h3>
+<p class="kv"><span class="kvk">SEO Title:</span> आधी रात का दूधवाला | सच्ची डरावनी कहानी | हिंदी हॉरर</p>
+<p class="kv"><span class="kvk">Alternative Titles:</span></p>
+<ul><li>आधी रात का दूधवाला — रात की वो घटना जो रुकती नहीं | हिंदी हॉरर कहानी</li><li>क्या हुआ था उस रात? आधी रात का दूधवाला | डरावनी कहानी</li><li>आधी रात का दूधवाला | भूतिया कहानी जो सोने नहीं देगी</li></ul>
+<p class="kv"><span class="kvk">Description:</span> "गाँव में एक दूधवाला आधी रात आता था। उसका दूध जो पीता, वो सुबह बहुत कमज़ोर उठता।" … यह है "आधी रात का दूधवाला" — वो गली की रोंगटे खड़े कर देने वाली कहानी। 🌑 चैनल Subscribe करें। हर गली कुछ छुपाती है।</p>
+<p class="kv"><span class="kvk">Tags:</span> हिंदी हॉरर कहानी, डरावनी कहानी, भूतिया कहानी, चुड़ैल की कहानी, गाँव की डरावनी कहानी, सच्ची डरावनी कहानी, vo gali, indian horror, scary stories hindi, psychological horror hindi</p>
+<p class="kv"><span class="kvk">Keywords:</span> हिंदी हॉरर कहानी, डरावनी कहानी, भूतिया कहानी, चुड़ैल की कहानी, गाँव की डरावनी कहानी, सच्ची डरावनी कहानी, vo gali, indian horror, scary stories hindi, psychological horror hindi</p>
+<p class="kv"><span class="kvk">Hashtags:</span> #हिंदीहॉरर #डरावनीकहानी #भूतियाकहानी #vogali #indianhorror #scarystories</p>
+</section></div>
+</body></html>
