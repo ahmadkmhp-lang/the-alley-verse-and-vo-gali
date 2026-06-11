@@ -1,13 +1,14 @@
 # FORTY-SEVEN SECONDS
-### Story_01 — Premium Psychological Horror (Mystery-Driven, Open Ending)
+### Story_01 — Premium Psychological Horror · Mystery-Driven · Open Ending
+**Concept Version 2.0 (Upgraded)** · Line: THE ALLEY VERSE (international / English)
 
-> *"Every recording that has me in it is missing exactly forty-seven seconds. I have started to wonder what I do in them."*
+> *"Every recording that has me in it is missing exactly forty-seven seconds. I used to think the problem was my memory. Now the photographs disagree with each other, and one of them shows how this ends."*
 
 ---
 
-## 1. Logline
+## 1. Logline (v2.0)
 
-A footage archivist realises that **every** recording in which he appears — security cameras, phone videos, voice memos, even a live stream — is missing the **same forty-seven seconds**, always centred on him. When he reconstructs those gaps from indirect evidence (reflections, other people's reactions, objects that have moved), the evidence shows him doing calm, deliberate things he has no memory of — and once, standing somewhere he could not possibly have reached in time. The closer he gets to capturing the gap on purpose, the less the world agrees with itself.
+A footage-restoration archivist discovers that **every** recording in which he appears is missing the **same forty-seven seconds**. At first it looks like a memory problem. Then the *record itself* breaks: cloud backups, other people's phones, and street cameras all share the identical gap. Then the **evidence starts arriving out of order** — a photo that shows an outcome before it happens, an object that appears somewhere before he moves it, two witnesses who remember the same forty-seven seconds in ways that cannot both be true. The anomaly climbs from his head, into his devices, into the people around him, and finally into the world. He never remembers the gap. He can only reconstruct it — and everything he reconstructs is worse.
 
 ---
 
@@ -17,123 +18,122 @@ A footage archivist realises that **every** recording in which he appears — se
 |---|---|
 | **Title** | Forty-Seven Seconds |
 | **Story ID** | STORY-01 |
-| **Format** | Long-form narrated horror (YouTube / podcast / audiobook) |
+| **Line / Universe** | THE ALLEY VERSE (international English line) |
+| **Format** | Long-form narrated horror |
 | **Length** | 4,500–6,000 words |
 | **POV** | First person, past tense, unreliable narrator |
-| **Sub-genre** | Reality-distortion / missing-time / surveillance-anomaly horror |
-| **Tone** | Cold, precise, investigative; dread through documentation, not gore |
-| **Ending** | Open — multiple competing, mutually exclusive theories |
-| **Entity** | None named or shown. The horror is the **gap** itself. |
+| **Sub-genre** | Reality-distortion / missing-time / surveillance-anomaly |
+| **Tone** | Cold, forensic, investigative; dread by documentation |
+| **Ending** | Open — four explanations, all reinforced, none confirmed |
+| **Recurring Symbol** | **The Incomplete Door** + the number **47** / time **2:47** |
 
 ---
 
-## 3. Influence / Comparable Tone
+## 3. The Core (Locked — Never Changes)
 
-Analog-anomaly and "investigation" horror in the spirit of *The Mandela Catalogue*, *Local58*, and *Gemini Home Entertainment* — but **grounded in everyday surveillance** (the cameras already in our pockets and ceilings), so it always feels like *"this could actually be happening."* No supernatural costume; just evidence that refuses to add up.
+- Missing **47 seconds** (always exactly 47).
+- **Surveillance anomaly** (the record, not just the mind).
+- **False memory** (confident memories contradicted by neutral evidence).
+- **Contradictory evidence** (two truths, two timestamps).
+- **Open ending** (no theory is ever confirmed).
 
----
-
-## 4. Core Horror Engine
-
-The fear is built from the reader's own instinct to **trust recordings more than memory**, then weaponising that trust:
-
-- **Reality distortion** — timestamps, shadows, and physical distances stop agreeing.
-- **Missing time** — always exactly 47 seconds; never more, never less.
-- **Surveillance anomaly** — the more cameras, the *more* consistent the gap becomes (it is not a glitch).
-- **False memory** — the narrator's confident memories are contradicted by neutral evidence.
-- **Contradictory evidence** — two witnesses, two timestamps, two truths.
-- **Strange human behaviour** — people who were near him during a gap behave as if nothing happened, but avoid him afterward.
-
-No jump scares. The dread compounds like an audit.
+Everything below is an *upgrade layered on top of* this core — the core is untouched.
 
 ---
 
-## 5. The Mystery — Competing Theories (all left open)
+## 4. The Upgrade — Escalation Ladder
 
-The story is engineered so the audience can defend **any** of these and never be proven wrong. This is the comment-section engine.
+The mystery climbs four rungs. Each rung makes the gap **more objective and less deniable**.
 
-1. **The Medical Theory** — Dissociative fugue / micro-seizures. He blacks out for 47 seconds and his brain back-fills false continuity. The cameras are fine; *he* is the fault.
-2. **The Editor Theory** — Something (or someone) is *removing* 47 seconds from the record of reality around him — a deletion, not a blackout. He is being edited.
-3. **The Author Theory** — *He* is the one doing the removing. The 47 seconds is the only time he is truly himself, and the rest of his life is the cover story.
-4. **The Inversion Theory** — The 47 seconds is the *real* world; the footage we trust is the anomaly. He is slowly being moved out of the recorded version of his life.
+| Act | Stage | What breaks | Anchor impossible evidence |
+|---|---|---|---|
+| I | **Personal anomaly** | His own phone videos & voice memos lose 47s | He "remembers" events the footage never recorded |
+| II | **Digital anomaly** | CCTV, cloud backups, a stranger's livestream — all share the *same* 47s gap | **A photo timestamped *before* an event shows the event's outcome** |
+| III | **Social anomaly** | Witnesses remember the same 47s in mutually exclusive ways; people avoid him after a gap | **An object appears in a location *before* he moves it — on two cameras, in two places, at the same second** |
+| IV | **Reality anomaly** | The gap leaves the recordings and happens *live*; the Incomplete Door appears physically | **A recording that finally captured the 47s shows the room exactly as it is — except he is not in it, and something off-frame is breathing** |
 
-The final scene supplies evidence for each theory and resolution for none.
-
----
-
-## 6. Why It Performs (Retention · Thumbnail · Replay)
-
-- **Cold-open hook:** a single sentence about the gap — instant curiosity.
-- **Escalation ladder:** each act raises the stakes of *what could be in the 47 seconds*.
-- **Thumbnail potential (very high):** a glitching/redacted timestamp `00:00:47`, or a figure scrubbed out of a frame with a black bar — instantly legible, no face needed.
-- **Replay value:** viewers rewind to "check the evidence" and argue theories.
-- **Comment trigger:** *"Which theory is right? Count the seconds in your own videos."*
+**Rule of escalation:** every new piece of evidence must create a *bigger* contradiction than the last. Nothing ever resolves; it only deepens.
 
 ---
 
-## 7. File Index (Production Package)
+## 5. The Recurring Symbol — The Incomplete Door
 
-This project ships as separate, single-purpose files. Generated **one at a time**.
+A **narrow door, slightly ajar, opening onto pure black, standing where no door exists.** It never announces itself; it is only ever found *inside the evidence* — in the corner of a reconstructed frame, reflected in a switched-off monitor, in the background of an impossible photograph — usually near a clock or timestamp reading **2:47**, or a frame count landing on **47**.
+
+It is THE ALLEY VERSE line's recurring symbol (this English story belongs to that line; it shares **no** lore with the separate *वो गली* franchise). The audience should learn to *hunt for the Door* in every visual — which is exactly the replay/Reddit behaviour we want.
+
+---
+
+## 6. The Four Explanations (Final Act — each evidence-backed)
+
+The climax presents four mutually exclusive readings. **Every one is supported. None is confirmed.**
+
+1. **MEDICAL** — Dissociative fugue + temporal-lobe events; confabulation invents continuity; "impossible" timestamps are misread. *Evidence:* his clinical history, an EEG anomaly, the fact that he is always the centre.
+2. **CRIMINAL** — He is being gaslit/edited by someone with access to his lab tools and devices — to drive him mad, or to bury a crime committed during the gaps. *Evidence:* lab access logs, a deleted user, a second set of footprints, motive.
+3. **TECHNOLOGICAL** — The lab's new AI restoration model "predicts and overwrites" 47 seconds; record and reality desync. *Evidence:* the model's 47-frame buffer, a firmware date matching onset, the gap's machine-perfect precision.
+4. **REALITY-DISTORTION** — The 47 seconds is a genuine tear; the Door is real; he is being edited out of the recorded world — and the gap is where he is **most real**. *Evidence:* the pre-cognitive photos, the two-place object, the breathing presence, the Door.
+
+The ending lays one final exhibit that **strengthens all four at once** — and closes on the intended question:
+
+> ### "What if the missing forty-seven seconds were the only real part?"
+
+---
+
+## 7. Comment-War Moments (designed debates)
+
+1. **The Two-Place Object** — his keys appear on two cameras, two locations, the same second. *Editing (criminal/tech) or a tear (distortion)?* Viewers will freeze-frame timestamps to "prove" their side.
+2. **The Mutually Exclusive Witnesses** — two coworkers each certain of contradictory events in the same 47s. *Whose memory is the planted one — theirs, or his?*
+3. **The Final Frame** — he is absent from the one recording that caught the gap. *Did he step out (mundane), get edited out (tech/criminal), or get erased from record-reality (distortion)? And whose breathing is that?*
+
+---
+
+## 8. Set-Piece Scenes (Thumbnail · Replay · Reddit)
+
+- **SCENE A — Thumbnail engine:** he freezes a CCTV frame; a black redaction bar sits where he should be, timestamp `02:47:47`, and a thin Incomplete Door glows in the deep background. *(One-glance thumbnail: scrubbed figure + 47.)*
+- **SCENE B — Replay engine:** the two-camera object reveal, cut so eagle-eyed viewers must rewind to check both timestamps — and spot the Door hiding in both frames.
+- **SCENE C — Reddit engine:** the **evidence-wall montage**, packed with hidden details (recurring 47s, the Door, a face in a reflection) built to be dissected frame by frame.
+
+---
+
+## 9. File Index (Production Package)
+
+Generated **one file at a time.**
 
 | # | File | Purpose | Status |
 |---|---|---|---|
-| 1 | `README.md` | Project overview, logline, theories, index (this file) | done |
-| 2 | `lore_database.md` | Canon rules of the gap, timeline, evidence ledger, the "47" logic | next |
-| 3 | `character_bible.md` | Narrator + supporting cast, consistency seeds, behaviour rules | pending |
-| 4 | `story.md` | The full 4,500–6,000 word first-person story | pending |
-| 5 | `image_prompts.md` | Scene-by-scene AI image prompts (MJ/Flux/Leonardo/Ideogram/Recraft) | pending |
-| 6 | `video_prompts.md` | AI video prompts (Veo/Kling/Hailuo/Runway/Pika/Luma) + motion/camera/light | pending |
-| 7 | `animation_prompts.md` | 2.5D layered prompts (FG/MG/BG/fog/particle/shadow/depth) + parallax | pending |
-| 8 | `sound_design.md` | Ambient/tension/anomaly cues, the "gap" silence design, mix notes | pending |
-| 9 | `voice_guide.md` | Narrator voice, tone, pacing, pause/emotion map, ElevenLabs settings | pending |
+| 1 | `README.md` | Overview, upgraded concept, theories, index | **done (v2.0)** |
+| 2 | `lore_database.md` | Canon of the gap, escalation ladder, evidence ledger, symbol logic, timeline, 4 explanations | **done** |
+| 3 | `character_bible.md` | Narrator + cast, consistency seeds, behaviour rules | next |
+| 4 | `story.md` | Full 4,500–6,000 word first-person story | pending |
+| 5 | `image_prompts.md` | Scene image prompts (MJ/Flux/Leonardo/Ideogram/Recraft) | pending |
+| 6 | `video_prompts.md` | AI video prompts (Veo/Kling/Hailuo/Runway/Pika/Luma) + motion | pending |
+| 7 | `animation_prompts.md` | 2.5D layered prompts + parallax | pending |
+| 8 | `sound_design.md` | Ambient/tension/anomaly cues, the "gap" silence | pending |
+| 9 | `voice_guide.md` | Narrator voice, pacing, pause/emotion map, ElevenLabs | pending |
 | 10 | `thumbnail_package.md` | 10 concepts + prompts, text, CTR psychology | pending |
 | 11 | `seo_package.md` | Titles, description, tags, keywords, hashtags, chapters | pending |
 
 ---
 
-## 8. Production Pipeline (How These Files Connect)
+## 10. Canon Rules (Quick Reference — v2.0)
 
-```
-lore_database  ---+
-character_bible --+--> story.md --> image_prompts --> video_prompts --> animation
-                  |                      |
-                  +----------------------+--> sound_design + voice_guide --> EDIT
-                                                                             |
-                                       thumbnail_package + seo_package ------+--> PUBLISH
-```
-
-1. Lock **canon** (lore) and **cast** (bible) so every later asset stays consistent.
-2. Write **story.md** — the single source of truth.
-3. Derive **visuals** (image -> video -> animation) scene by scene from the story beats.
-4. Derive **audio** (sound + voice) for the narration.
-5. Edit, then package **thumbnail + SEO** for launch.
-
----
-
-## 9. How To Read / Spoiler Policy
-
-- Read `story.md` **before** the lore/thumbnail files if you want the intended experience — the other files contain structural spoilers.
-- The story is deliberately **unresolved**. Files 2–11 support production; they do **not** "explain the ending." The ending is meant to stay open.
-
----
-
-## 10. Canon Rules (Quick Reference)
-
-- The gap is **always exactly 47 seconds**. Treat any "almost 47" as a red flag in-world.
-- The gap appears **only in recordings that contain the narrator.**
-- The narrator **never** remembers the gap; he only ever reconstructs it.
-- **Nothing supernatural is ever shown on screen.** The horror lives in absence and contradiction.
-- The story **never confirms** which theory is true.
+- The gap is **always exactly 47 seconds.** Any "almost 47" is an in-world warning sign.
+- It begins **only in recordings of the narrator** (Act I), then spreads to **all nearby records** (Act II–III), then to **lived reality** (Act IV).
+- He **never remembers** the gap — he only reconstructs it, and reconstruction always worsens it.
+- **Each new exhibit must contradict the last more severely.**
+- The **Incomplete Door** and the number **47 / time 2:47** recur naturally inside evidence.
+- **Nothing supernatural is ever shown plainly.** Horror = absence + contradiction.
+- The story **confirms no theory** and ends on the title question.
 
 ---
 
 ## 11. Status & Next Step
 
-**Completed:** `README.md`
-**Next file:** `lore_database.md` (canon, timeline, evidence ledger).
+**Completed:** `README.md` (v2.0), `lore_database.md`
+**Next file:** `character_bible.md`
 
-> Files are generated one at a time, as requested. Say **"continue"** (or "next") and I will generate `lore_database.md`, then proceed through the list in order.
+> Say **"continue"** and I will generate `character_bible.md`, then proceed through the remaining files in order.
 
 ---
 
-*Story_01 of a premium psychological-horror line. Original work. © 2026. All rights reserved.*
+*Story_01 of THE ALLEY VERSE premium long-form line. Original work. © 2026. All rights reserved.*
